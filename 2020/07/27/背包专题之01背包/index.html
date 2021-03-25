@@ -1,19 +1,393 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><link rel="stylesheet" type="text/css" href="//fonts.loli.net/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.5"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.5"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><title>背包专题之01背包 | kenven</title><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">背包专题之01背包</h1><a id="logo" href="/.">kenven</a><p class="description">每天多思考一点点</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">背包专题之01背包</h1><div class="post-meta"><a href="/2020/07/27/%E8%83%8C%E5%8C%85%E4%B8%93%E9%A2%98%E4%B9%8B01%E8%83%8C%E5%8C%85/#comments" class="comment-count"></a><p><span class="date">Jul 27, 2020</span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><h6 id="01背包"><a href="#01背包" class="headerlink" title="01背包"></a>01背包</h6><p>01背包是最基础的背包问题，特点是每种物品仅有一件，可以选择放或不放。<br>其状态通常表示为f[i][j]:前i个物品放入容量为j的背包中的最大价值</p>
- <a id="more"></a>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>背包专题之01背包 | Galois</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Galois">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
 
-<p>其题目表示如下:<br>     <code>有N件物品和一个容量为V 的背包。放入第i件物品耗费的空间是Ci，得到
-的价值是Wi。求解将哪些物品装入背包可使价值总和最大。</code></p>
-<p>思路通常为:<br>    考虑第i件物品的选取<br>      1. 不放第i件物品，则前面的i-1个物品放入容量为j的背包中<br>      2. 放第i件物品，则前面的i-1个物品要放入容量为j-w[i]的背包中(w[i]表示当前这件商品的重量，v[i]表示当前这件商品的价值)<br>    所以01背包的状态转移方程为 <code>f[i][j]=max(f[i-1][j],f[i-1][j-W[i]]+v[i])</code></p>
-<p>伪代码:（先枚举物品，在逆向枚举容量）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for(int i&#x3D;1;i&lt;&#x3D;n;i++)&#123;&#x2F;&#x2F;枚举物品，n表示物品的个数</span><br><span class="line">    for(int j&#x3D;v;j&gt;&#x3D;0;j--)&#123;&#x2F;&#x2F;逆向枚举容量，v表示背包最大容量</span><br><span class="line">        if(j&gt;&#x3D;w[i])&#123;</span><br><span class="line">            f[i][j]&#x3D;max(f[i-1][j],f[i-1][j-W[i]]+v[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-<p>上面那段代码的空间复杂度为O(vn),我们可以将第一维省略，只留一维表示背包的容量，这样空间复杂度就优化到了O(V)。<br>同时可以将上面的if判断条件放入for循环中，优化后代码如下。</p>
-<p>伪代码:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for(int i&#x3D;1;i&lt;&#x3D;n;i++)&#123;&#x2F;&#x2F;枚举物品，n表示物品的个数</span><br><span class="line">    for(int j&#x3D;v;j&gt;&#x3D;w[i];j--)&#123;&#x2F;&#x2F;逆向枚举容量，v表示背包最大容量</span><br><span class="line">            f[j]&#x3D;max(f[j],f[j-W[i]]+v[i]);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
-<h6 id="关于初始化"><a href="#关于初始化" class="headerlink" title="关于初始化"></a>关于初始化</h6><ol>
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Galois</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">耐心努力</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-背包专题之01背包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      背包专题之01背包
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2020-07-27T07:54:17.000Z" itemprop="datePublished">2020年07月27日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2020/07/27/%E8%83%8C%E5%8C%85%E4%B8%93%E9%A2%98%E4%B9%8B01%E8%83%8C%E5%8C%85/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> <font size="3">01背包是最基础的背包问题，特点是每种物品仅有一件，可以选择放或不放。</font><br> <font size="3">其状态通常表示为<code>f[i][j]</code>,即前i个物品放入容量为j的背包中的最大价值。</font><br> <a id="more"></a></p>
+<hr>
+<h2 id="其题目表示如下"><a href="#其题目表示如下" class="headerlink" title="其题目表示如下:"></a>其题目表示如下:</h2><blockquote>
+<p>  <font size="3">有N件物品和一个容量为V的背包。放入第i件物品耗费的空间是W[i],得到的价值是v[i],求解将哪些物品装入背包可使价值总和最大。</font></p>
+</blockquote>
+<p><font size="3">思路通常为: 考虑第i件物品的选取</font></p>
+<blockquote>
+<ul>
+<li><font size="3">不放第i件物品，则前面的i-1个物品放入容量为j的背包中</font></li>
+<li><font size="3">放第i件物品，则前面的i-1个物品要放入容量为j-w[i]的背包中,w[i]表示当前这件商品的重量，v[i]表示当前这件商品的价值。</font></li>
+</ul>
+</blockquote>
+<p><font size="3">所以01背包的状态转移方程为 <code>f[i][j]=max(f[i-1][j],f[i-1][j-W[i]]+v[i])</code></font></p>
+<hr>
+<p><font size="3"><em>伪代码:</em>（<font color="red">先枚举物品，在逆向枚举容量</font>）</font></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;<span class="comment">//枚举物品，n表示物品的个数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=v;j&gt;=<span class="number">0</span>;j--)&#123;<span class="comment">//逆向枚举容量，v表示背包最大容量</span></span><br><span class="line">        <span class="keyword">if</span>(j&gt;=w[i])&#123;</span><br><span class="line">            f[i][j]=max(f[i-<span class="number">1</span>][j],f[i-<span class="number">1</span>][j-W[i]]+v[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><font size="3">上面那段代码的空间复杂度为O(vn),我们可以将第一维省略，只留一维表示背包的容量，这样空间复杂度就优化到了O(V)。<br>同时可以将上面的if判断条件放入for循环中，优化后代码如下。</font></p>
+<p><font size="3"><em>伪代码:</em></font></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;<span class="comment">//枚举物品，n表示物品的个数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=v;j&gt;=w[i];j--)&#123;<span class="comment">//逆向枚举容量，v表示背包最大容量</span></span><br><span class="line">            f[j]=max(f[j],f[j-W[i]]+v[i]);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="关于初始化"><a href="#关于初始化" class="headerlink" title="关于初始化"></a>关于初始化</h2><blockquote>
+<ul>
 <li>如果题目问恰好能装满，那f[0],f[1…v]=-INF(表示负无穷，一般会设INF=ox3f3f3f3f)</li>
 <li>如果题目并没有要求，那f[0….v]=0</li>
-</ol>
-<h6 id="推荐题目"><a href="#推荐题目" class="headerlink" title="推荐题目"></a>推荐题目</h6><p>1.<a href="http://acm.hdu.edu.cn/showproblem.php?pid=2602" target="_blank" rel="noopener"> Hdu 2602 Bone Collector </a><br>2.<a href="http://acm.hdu.edu.cn/showproblem.php?pid=2546" target="_blank" rel="noopener">Hdu 2546 饭卡 </a><br>3.<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=565" target="_blank" rel="noopener">Uva 624</a></p>
-</div><div class="post-copyright"><blockquote><p>原文作者: 华华yoooo</p><p>原文链接: <a href="http://yoursite.com/2020/07/27/背包专题之01背包/">http://yoursite.com/2020/07/27/背包专题之01背包/</a></p><p>版权声明: 转载请注明出处</p></blockquote></div><div class="tags"><a href="/tags/01%E8%83%8C%E5%8C%85-DP/">-01背包 -DP</a></div><div class="post-share"><div class="social-share"><span>分享到:</span></div></div><div class="post-nav"><a href="/2020/06/18/java%E4%BA%94%E5%AD%90%E6%A3%8B%E5%B0%8F%E6%B8%B8%E6%88%8F/" class="next">五子棋小游戏</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#01背包"><span class="toc-text">01背包</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#关于初始化"><span class="toc-text">关于初始化</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#推荐题目"><span class="toc-text">推荐题目</span></a></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/07/27/%E8%83%8C%E5%8C%85%E4%B8%93%E9%A2%98%E4%B9%8B01%E8%83%8C%E5%8C%85/">背包专题之01背包</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/18/java%E4%BA%94%E5%AD%90%E6%A3%8B%E5%B0%8F%E6%B8%B8%E6%88%8F/">五子棋小游戏</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/10/IDEA%E4%B8%AD%E9%85%8D%E7%BD%AEJSTL%E6%A0%87%E5%87%86%E6%A0%87%E7%AD%BE%E5%BA%93/">IDEA中配置JSTL标准标签库</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/06/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/01%E8%83%8C%E5%8C%85-DP/" style="font-size: 15px;">-01背包 -DP</a> <a href="/tags/IDEA%E9%85%8D%E7%BD%AE/" style="font-size: 15px;">IDEA配置</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">4</span></li></ul></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |  <a href="/atom.xml">订阅本站</a> |  <a href="/about/">联系博主</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次，本站总访客数:<i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>人</p><p><span> Copyright &copy;<a href="/." rel="nofollow">华华yoooo.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script type="text/javascript" src="/js/search.json.js?v=2.0.5"></script><div id="fullscreen-img" class="hide"><span class="close"></span></div><script type="text/javascript" src="/js/imgview.js?v=2.0.5" async></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.5" async></script><link rel="stylesheet" type="text/css" href="/share/css/share.css"><script type="text/javascript" src="/share/js/social-share.js" charset="utf-8"></script><script type="text/javascript" src="/share/js/qrcode.js" charset="utf-8"></script></body></html>
+</ul>
+</blockquote>
+<h2 id="推荐题目"><a href="#推荐题目" class="headerlink" title="推荐题目"></a>推荐题目</h2><p>1.<a href="http://acm.hdu.edu.cn/showproblem.php?pid=2602" target="_blank" rel="noopener">Hdu 2602 Bone Collector </a><br>2.<a href="http://acm.hdu.edu.cn/showproblem.php?pid=2546" target="_blank" rel="noopener">Hdu 2546 饭卡 </a><br>3.<a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=565" target="_blank" rel="noopener">Uva 624</a></p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#其题目表示如下"><span class="toc-text">其题目表示如下:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于初始化"><span class="toc-text">关于初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推荐题目"><span class="toc-text">推荐题目</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yoursite.com/2020/07/27/背包专题之01背包/">http://yoursite.com/2020/07/27/背包专题之01背包/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/01%E8%83%8C%E5%8C%85/" rel="tag">01背包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2021/01/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%93%E9%A2%98(%E5%B8%B8%E7%94%A8)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          设计模式专题(常用)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/05/10/IDEA%E4%B8%AD%E9%85%8D%E7%BD%AEJSTL%E6%A0%87%E5%87%86%E6%A0%87%E7%AD%BE%E5%BA%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">IDEA中配置JSTL标准标签库</div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/03/25/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/05/%E6%89%BE%E5%9B%9Eroot%E5%AF%86%E7%A0%81/">找回root密码</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/04/%E5%B8%B8%E7%94%A8Linux%E6%8C%87%E4%BB%A4/">常用Linux指令</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/04/Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8A%9F%E8%83%BD/">Linux目录结构与功能</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%93%E9%A2%98(%E5%B8%B8%E7%94%A8)/">设计模式专题(常用)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/01%E8%83%8C%E5%8C%85/" style="font-size: 10px;">01背包</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/IDEA%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">IDEA配置</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年03月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年02月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年01月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年07月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年05月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年04月</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/01%E8%83%8C%E5%8C%85/" rel="tag">01背包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA%E9%85%8D%E7%BD%AE/" rel="tag">IDEA配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2021 Galois.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        
+            <span>Count by <a href="http://busuanzi.ibruce.info/" target="_blank">busuanzi.</a></span>
+        
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  
+<script src="/localshare/js/social-share.js"></script>
+
+  
+<script src="/localshare/js/qrcode.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>
