@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>JavaWeb_Http | Galois</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Galois">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Galois</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">耐心努力</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-JavaWeb_Http" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      JavaWeb_Http
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-03-29T01:45:14.000Z" itemprop="datePublished">2021年03月29日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2021/03/29/JavaWeb_Http/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Http、request、BeanUtils工具类</p>
+<a id="more"></a>
+<h1 id="1-Http"><a href="#1-Http" class="headerlink" title="1. Http"></a>1. Http</h1><h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h2><p><code>Hyper Text Transfer Protocol</code> 超文本传输协议</p>
+<ol>
+<li><p>传输协议：定义了客户端和服务器端通信时，发送数据的格式</p>
+</li>
+<li><p>特点：</p>
+<ul>
+<li>基于<code>TCP/IP</code>的高级协议</li>
+<li>默认端口号:80</li>
+<li>基于请求/响应模型的:一次请求对应一次响应</li>
+<li>无状态的：每次请求之间相互独立，不能交互数据</li>
+</ul>
+</li>
+<li><p>历史版本：</p>
+<ul>
+<li>1.0：每一次请求响应都会建立新的连接</li>
+<li>1.1：复用连接</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-请求消息数据格式"><a href="#2-请求消息数据格式" class="headerlink" title="2. 请求消息数据格式"></a>2. 请求消息数据格式</h2><ol>
+<li><p>请求行: 格式为<code>请求方式 请求url 请求协议/版本</code>,如 <code>GET /login.html    HTTP/1.1</code></p>
+</li>
+<li><p>请求方式：HTTP协议有7中请求方式，常用的有2种</p>
+<pre><code>GET：
+    1. 请求参数在请求行中的url后。
+    2. 请求的url长度有限制的
+    3. 不太安全
+POST：
+    1. 请求参数在请求体中
+    2. 请求的url长度没有限制的
+    3. 相对安全</code></pre></li>
+<li><p>请求头：客户端浏览器告诉服务器一些信息，格式为<code>请求头名称: 请求头值</code>,常见的请求头：</p>
+<pre><code>1. User-Agent：浏览器告诉服务器，我访问你使用的浏览器版本信息
+    可以在服务器端获取该头的信息，解决浏览器的兼容性问题
+
+2. Referer：http://localhost/login.html
+    告诉服务器，当前请求从哪里来？可以防盗链和统计</code></pre></li>
+<li><p>请求空行：空行，就是用于分割POST请求的请求头和请求体的。</p>
+</li>
+<li><p>请求体(正文)：封装POST请求消息的请求参数的</p>
+</li>
+<li><p>字符串格式：</p>
+<pre><code>POST /login.html    HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
+Accept-Encoding: gzip, deflate
+Referer: http://localhost/login.html
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+username=zhangsan</code></pre></li>
+</ol>
+<h2 id="3-响应消息数据格式"><a href="#3-响应消息数据格式" class="headerlink" title="3. 响应消息数据格式"></a>3. 响应消息数据格式</h2><ol>
+<li><p>响应行</p>
+<p> (1). 组成：<code>协议/版本 响应状态码 状态码描述</code></p>
+<p> (2). 响应状态码：服务器告诉客户端浏览器本次请求和响应的一个状态，状态码都是3位数字,其分类：</p>
+<pre><code>1. 1xx：服务器就收客户端消息，但没有接受完成，等待一段时间后，发送1xx多状态码
+2. 2xx：成功。代表：200
+3. 3xx：重定向
+    302(重定向)
+    304(访问缓存)
+4. 4xx：客户端错误,代表：
+    404（请求路径没有对应的资源） 
+    405 (请求方式没有对应的doXxx方法)
+5. 5xx：服务器端错误。
+    500(服务器内部出现异常)</code></pre></li>
+<li><p>响应头：</p>
+<p> (1) 格式：<code>头名称： 值</code></p>
+<p> (2) 常见的响应头：</p>
+<pre><code>1. Content-Type：服务器告诉客户端本次响应体数据格式以及编码格式
+
+2. Content-disposition：服务器告诉客户端以什么格式打开响应体数据,其值有：
+
+    in-line:默认值,在当前页面内打开
+
+    attachment;filename=xxx：以附件形式打开响应体。文件下载</code></pre></li>
+<li><p>响应空行</p>
+</li>
+<li><p>响应体:传输的数据</p>
+</li>
+</ol>
+<h1 id="2-Request"><a href="#2-Request" class="headerlink" title="2. Request"></a>2. Request</h1><h2 id="1-request对象和response对象的原理"><a href="#1-request对象和response对象的原理" class="headerlink" title="1. request对象和response对象的原理"></a>1. request对象和response对象的原理</h2><pre><code>1. request和response对象是由服务器创建的,我们只是来使用它们
+
+2. request对象是来获取请求消息，response对象是来设置响应消息</code></pre><h2 id="2-request对象继承体系结构"><a href="#2-request对象继承体系结构" class="headerlink" title="2. request对象继承体系结构"></a>2. request对象继承体系结构</h2><pre><code>ServletRequest --接口
+    |    继承
+HttpServletRequest --接口
+    |    实现
+org.apache.catalina.connector.RequestFacade 类(tomcat)</code></pre><h2 id="3-request功能"><a href="#3-request功能" class="headerlink" title="3. request功能"></a>3. request功能</h2><h3 id="3-1-获取请求消息数据"><a href="#3-1-获取请求消息数据" class="headerlink" title="3.1. 获取请求消息数据"></a>3.1. 获取请求消息数据</h3><h4 id="1-获取请求行数据"><a href="#1-获取请求行数据" class="headerlink" title="1. 获取请求行数据"></a>1. 获取请求行数据</h4><pre><code>GET /day14/demo1?name=zhangsan HTTP/1.1
+
+    1. 获取请求方式 ：GET
+        String getMethod()
+
+    2. (*) 获取虚拟目录：/day14
+        String getContextPath()
+
+    3. 获取Servlet路径: /demo1
+        String getServletPath()
+
+    4. 获取get方式请求参数：name=zhangsan
+        String getQueryString()
+
+    5. (*) 获取请求URI：/day14/demo1
+        String getRequestURI()        /day14/demo1
+        StringBuffer getRequestURL()  http://localhost/day14/demo1
+
+        URL:统一资源定位符 ： http://localhost/day14/demo1    范围小
+        URI：统一资源标识符 : /day14/demo1                    范围大
+
+    6. 获取协议及版本：HTTP/1.1
+        String getProtocol()
+
+    7. 获取客户机的IP地址：
+        String getRemoteAddr()</code></pre><h4 id="2-获取请求头数据"><a href="#2-获取请求头数据" class="headerlink" title="2. 获取请求头数据"></a>2. 获取请求头数据</h4><pre><code>(*)String getHeader(String name):通过请求头的名称获取请求头的值
+
+Enumeration&lt;String&gt; getHeaderNames()`:获取所有的请求头名称</code></pre><h4 id="3-获取请求体数据"><a href="#3-获取请求体数据" class="headerlink" title="3. 获取请求体数据"></a>3. 获取请求体数据</h4><pre><code>1. 请求体：只有POST请求方式，才有请求体，在请求体中封装了POST请求的请求参数
+
+2. 步骤：
+
+    1. 流对获取象
+        BufferedReader getReader()：获取字符输入流，只能操作字符数据
+        ServletInputStream getInputStream()：获取字节输入流，可以操作所有类型数据，详解请看在文件上传知识点后讲解
+
+    2. 再从流对象中拿数据</code></pre><h4 id="4-获取请求参数通用方式"><a href="#4-获取请求参数通用方式" class="headerlink" title="4. 获取请求参数通用方式"></a>4. 获取请求参数通用方式</h4><ol>
+<li><p>不论get还是post请求方式都可以使用下列方法来获取请求参数</p>
+<pre><code>1. String getParameter(String name):根据参数名称获取参数值    username=zs&amp;password=123
+
+2. String[] getParameterValues(String name):根据参数名称获取参数值的数组  hobby=xx&amp;hobby=game
+
+3. Enumeration&lt;String&gt; getParameterNames():获取所有请求的参数名称 Enumeration类似于迭代器
+
+4. Map&lt;String,String[]&gt; getParameterMap():获取所有参数的map集合</code></pre></li>
+<li><p>中文乱码问题：</p>
+<pre><code>1. get方式：tomcat 8 已经将get方式乱码问题解决了
+
+2. post方式：会乱码
+
+3. 解决：在获取参数前，设置request的编码request.setCharacterEncoding(&quot;utf-8&quot;);</code></pre></li>
+</ol>
+<h4 id="5-请求转发"><a href="#5-请求转发" class="headerlink" title="5. 请求转发"></a>5. 请求转发</h4><p>一种在服务器内部的资源跳转方式,即<code>AServlet</code>跳转到<code>BServlet</code></p>
+<ol>
+<li><p>步骤：</p>
+<pre><code>1. 通过request对象获取请求转发器对象： RequestDispatcher getRequestDispatcher(String path)
+
+2. 使用RequestDispatcher对象来进行转发：forward(ServletRequest request, ServletResponse response)</code></pre></li>
+<li><p>特点：</p>
+<pre><code>1. 浏览器地址栏路径不发生变化
+
+2. 只能转发到当前服务器内部资源中。
+
+3. 转发是一次请求</code></pre></li>
+<li></li>
+</ol>
+<h4 id="6-共享数据"><a href="#6-共享数据" class="headerlink" title="6. 共享数据"></a>6. 共享数据</h4><ol>
+<li><p>域对象：一个有作用范围的对象，可以在范围内共享数据</p>
+</li>
+<li><p>request域：代表一次请求的范围，一般用于请求转发的多个资源中共享数据</p>
+</li>
+<li><p>方法：</p>
+<pre><code>1. void setAttribute(String name,Object obj):存储数据
+
+2. Object getAttitude(String name):通过键获取值
+
+3. void removeAttribute(String name):通过键移除键值对</code></pre></li>
+</ol>
+<h4 id="7-获取ServletContext对象"><a href="#7-获取ServletContext对象" class="headerlink" title="7. 获取ServletContext对象"></a>7. 获取ServletContext对象</h4><ol>
+<li><p>ServletContext代表整个web应用，可以和服务器来通信</p>
+</li>
+<li><p>获取</p>
+<pre><code>1. 通过request对象获取
+    request.getServletContext();
+
+2. 通过HttpServlet获取
+    this.getServletContext();</code></pre></li>
+<li><p>功能</p>
+<ol>
+<li><p>获取MIME类型</p>
+<p> MIME类型:在互联网通信过程中定义的一种文件数据类型</p>
+<p> 格式： 大类型/小类型   text/html        image/jpeg</p>
+<p> 获取：String getMimeType(String file)</p>
+</li>
+<li><p>域对象：共享数据(最好少用)</p>
+<pre><code>1. setAttribute(String name,Object value)
+
+2. getAttribute(String name)
+
+3. removeAttribute(String name)</code></pre></li>
+<li><p>获取文件的运行路径</p>
+<pre><code>String getRealPath(String path)  
+
+1. String b = context.getRealPath(&quot;/b.txt&quot;);//web目录下资源访问
+
+2.String c = context.getRealPath(&quot;/WEB-INF/c.txt&quot;);//WEB-INF目录下的资源访问
+
+3. String a = context.getRealPath(&quot;/WEB-INF/classes/a.txt&quot;);//src目录下的资源访问,src目录下的文件编译后的文件会存放在classes目录下</code></pre></li>
+</ol>
+</li>
+</ol>
+<h1 id="3-Response"><a href="#3-Response" class="headerlink" title="3.Response"></a>3.Response</h1><h2 id="3-1-Response设置响应消息"><a href="#3-1-Response设置响应消息" class="headerlink" title="3.1 Response设置响应消息"></a>3.1 Response设置响应消息</h2><ol>
+<li><p>设置响应行</p>
+<pre><code>1. 格式：HTTP/1.1 200 ok
+2. 设置状态码：setStatus(int sc) </code></pre></li>
+<li><p>设置响应头</p>
+<pre><code>setHeader(String name, String value) </code></pre></li>
+<li><p>设置响应体：</p>
+<pre><code>使用步骤：
+
+    1. 获取输出流
+        字符输出流：PrintWriter getWriter()
+
+        字节输出流：ServletOutputStream getOutputStream()
+
+    2. 使用输出流，将数据输出到客户端浏览器</code></pre><h2 id="3-2-Response重定向"><a href="#3-2-Response重定向" class="headerlink" title="3.2 Response重定向"></a>3.2 Response重定向</h2><h3 id="1-代码"><a href="#1-代码" class="headerlink" title="1. 代码"></a>1. 代码</h3> <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//1. 设置状态码为302</span></span><br><span class="line">response.setStatus(<span class="number">302</span>);</span><br><span class="line"><span class="comment">//2.设置响应头location</span></span><br><span class="line">response.setHeader(<span class="string">"location"</span>,<span class="string">"/day15/responseDemo2"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//简单的重定向方法</span></span><br><span class="line">response.sendRedirect(<span class="string">"/day15/responseDemo2"</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="2-重定向的特点-redirect"><a href="#2-重定向的特点-redirect" class="headerlink" title="2. 重定向的特点:redirect"></a>2. 重定向的特点:redirect</h3><pre><code>1. 地址栏发生变化
+2. 重定向可以访问其他站点(服务器)的资源
+3. 重定向是两次请求。不能使用request对象来共享数据</code></pre></li>
+</ol>
+<h3 id="3-转发的特点：forward"><a href="#3-转发的特点：forward" class="headerlink" title="3. 转发的特点：forward"></a>3. 转发的特点：forward</h3><pre><code>1. 转发地址栏路径不变
+2. 转发只能访问当前服务器下的资源
+3. 转发是一次请求，可以使用request对象来共享数据,即setAttribute()和getAttribute()方法</code></pre><h2 id="3-3-服务器输出字符数据到浏览器"><a href="#3-3-服务器输出字符数据到浏览器" class="headerlink" title="3.3 服务器输出字符数据到浏览器"></a>3.3 服务器输出字符数据到浏览器</h2><h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤:"></a>步骤:</h4><pre><code>1. 获取字符输出流
+2. 输出数据 </code></pre><h2 id="3-4-服务器输出字符数据到浏览器"><a href="#3-4-服务器输出字符数据到浏览器" class="headerlink" title="3.4 服务器输出字符数据到浏览器"></a>3.4 服务器输出字符数据到浏览器</h2><h4 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h4><pre><code>1. 获取字节输出流
+2. 输出数据   </code></pre><h1 id="4-BeanUtils工具类"><a href="#4-BeanUtils工具类" class="headerlink" title="4. BeanUtils工具类"></a>4. BeanUtils工具类</h1><ol>
+<li><p>用于封装JavaBean的</p>
+</li>
+<li><p>JavaBean：标准的Java类</p>
+<pre><code>1. 要求：
+    1. 类必须被public修饰
+    2. 必须提供空参的构造器
+    3. 成员变量必须使用private修饰
+    4. 提供公共setter和getter方法
+2. 功能：封装数据</code></pre></li>
+<li><p>概念：</p>
+<pre><code>成员变量：
+属性：setter和getter方法截取后的产物
+    例如：getUsername() --&gt; Username--&gt; username</code></pre></li>
+<li><p>方法：</p>
+<pre><code>1. setProperty()
+2. getProperty()
+3. populate(Object obj , Map map):将map集合的键值对信息，封装到对应的JavaBean对象中</code></pre></li>
+</ol>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Http"><span class="toc-text">1. Http</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-概念"><span class="toc-text">1. 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-请求消息数据格式"><span class="toc-text">2. 请求消息数据格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-响应消息数据格式"><span class="toc-text">3. 响应消息数据格式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Request"><span class="toc-text">2. Request</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-request对象和response对象的原理"><span class="toc-text">1. request对象和response对象的原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-request对象继承体系结构"><span class="toc-text">2. request对象继承体系结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-request功能"><span class="toc-text">3. request功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-获取请求消息数据"><span class="toc-text">3.1. 获取请求消息数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-获取请求行数据"><span class="toc-text">1. 获取请求行数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-获取请求头数据"><span class="toc-text">2. 获取请求头数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-获取请求体数据"><span class="toc-text">3. 获取请求体数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-获取请求参数通用方式"><span class="toc-text">4. 获取请求参数通用方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-请求转发"><span class="toc-text">5. 请求转发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-共享数据"><span class="toc-text">6. 共享数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-获取ServletContext对象"><span class="toc-text">7. 获取ServletContext对象</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Response"><span class="toc-text">3.Response</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-Response设置响应消息"><span class="toc-text">3.1 Response设置响应消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-Response重定向"><span class="toc-text">3.2 Response重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-代码"><span class="toc-text">1. 代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-重定向的特点-redirect"><span class="toc-text">2. 重定向的特点:redirect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-转发的特点：forward"><span class="toc-text">3. 转发的特点：forward</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-服务器输出字符数据到浏览器"><span class="toc-text">3.3 服务器输出字符数据到浏览器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤"><span class="toc-text">步骤:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-服务器输出字符数据到浏览器"><span class="toc-text">3.4 服务器输出字符数据到浏览器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤-1"><span class="toc-text">步骤</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-BeanUtils工具类"><span class="toc-text">4. BeanUtils工具类</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yoursite.com/2021/03/29/JavaWeb_Http/">http://yoursite.com/2021/03/29/JavaWeb_Http/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Http/" rel="tag">Http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2021/03/31/%E8%B7%AF%E5%BE%84%E5%92%8C%E7%BC%96%E7%A0%81/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          路径和编码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/03/29/HttpServlet%EF%BC%9A%E6%AD%A4URL%E4%B8%8D%E6%94%AF%E6%8C%81HTTP%E6%96%B9%E6%B3%95GET/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">HttpServlet：此URL不支持HTTP方法GET</div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/20201/03/28/JAVA%E5%9F%BA%E7%A1%80_io/">JAVA基础_io</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/02/web%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/">web文件下载</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/31/%E8%B7%AF%E5%BE%84%E5%92%8C%E7%BC%96%E7%A0%81/">路径和编码</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/29/JavaWeb_Http/">JavaWeb_Http</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/29/HttpServlet%EF%BC%9A%E6%AD%A4URL%E4%B8%8D%E6%94%AF%E6%8C%81HTTP%E6%96%B9%E6%B3%95GET/">HttpServlet：此URL不支持HTTP方法GET</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/01%E8%83%8C%E5%8C%85/" style="font-size: 10px;">01背包</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Http/" style="font-size: 10px;">Http</a> <a href="/tags/IDEA%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">IDEA配置</a> <a href="/tags/JAVA/" style="font-size: 13.33px;">JAVA</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaWeb/" style="font-size: 16.67px;">JavaWeb</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Mistake/" style="font-size: 10px;">Mistake</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/Servlet/" style="font-size: 13.33px;">Servlet</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" style="font-size: 10px;">字符编码</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" style="font-size: 10px;">文件下载</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">设计模式</a> <a href="/tags/%E8%B7%AF%E5%BE%84/" style="font-size: 10px;">路径</a>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/20201/">20201年03月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年04月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年03月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年02月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年01月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年07月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年05月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年04月</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/01%E8%83%8C%E5%8C%85/" rel="tag">01背包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Http/" rel="tag">Http</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA%E9%85%8D%E7%BD%AE/" rel="tag">IDEA配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mistake/" rel="tag">Mistake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" rel="tag">字符编码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" rel="tag">文件下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E5%BE%84/" rel="tag">路径</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2021 Galois.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        
+            <span>Count by <a href="http://busuanzi.ibruce.info/" target="_blank">busuanzi.</a></span>
+        
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  
+<script src="/localshare/js/social-share.js"></script>
+
+  
+<script src="/localshare/js/qrcode.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>

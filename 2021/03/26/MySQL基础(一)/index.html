@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>MySQL基础(一) | Galois</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Galois">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Galois</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">耐心努力</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="w-MySQL基础(一)" class="h-entry article article-type-w" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      MySQL基础(一)
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-03-26T01:18:40.000Z" itemprop="datePublished">2021年03月26日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2021/03/26/MySQL%E5%9F%BA%E7%A1%80(%E4%B8%80)/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>数据库的基本概念、SQL(DDL、DML、DQL、DLC)</p>
+<a id="more"></a>
+
+<h2 id="1-数据库的基本概念"><a href="#1-数据库的基本概念" class="headerlink" title="1. 数据库的基本概念"></a>1. 数据库的基本概念</h2><pre><code>1.什是数据库?
+    * 用于存储数据和管理数据的仓库。
+
+2. 数据库的特点：
+    * 持久化存储数据，其实数据库就一个系统文件
+    * 方便存储和管理数据
+    * 使用了统一的方式操作数据库 -- SQL
+
+4. 几个概念:
+    * 数据库: 文件夹
+    * 表: 文件
+    * 数据 数据</code></pre><h2 id="2-SQL"><a href="#2-SQL" class="headerlink" title="2. SQL"></a>2. SQL</h2><h3 id="2-1-什么是SQL"><a href="#2-1-什么是SQL" class="headerlink" title="2.1 什么是SQL?"></a>2.1 什么是SQL?</h3><pre><code>Structured Query Language: 结构化查询语言
+其实就是定义了操作所有关系型数据库的规则。每种数据库(MySql、Oracle等等)操作的方式存在不一样的地方</code></pre><h3 id="2-2-SQL通用语法"><a href="#2-2-SQL通用语法" class="headerlink" title="2.2 SQL通用语法"></a>2.2 SQL通用语法</h3><pre><code>* SQL语句可以单行或多行书写，以分号结尾
+* MySQL的SQL不区分大小写
+* 3种注释
+    * 单行注释: --注释内容 或 # 注释内容(MySQL特有)
+    * 多行注释: /*注释*/</code></pre><h3 id="2-3-SQL分类"><a href="#2-3-SQL分类" class="headerlink" title="2.3 SQL分类"></a>2.3 SQL分类</h3><pre><code>1) DDL(Data Definition Language)数据定义语言
+    用来定义数据库对象：数据库、表、列等
+    关键字：create、drop、alter等
+
+2) DML(Data Manipulation Language)数据操作语言
+    用来对表中的数据进行增删改
+    关键字：insert、delete、update
+
+3) DQL(Data Query Language)数据查询语言
+    用来查询表中的数据
+    关键字: select、where等
+
+4) DCL(Data Control Language)数据控制语言
+    用来定义数据库的访问权限和安全级别，以及创建用户
+    关键字：GRANT、REVOKE等</code></pre><h2 id="3-DDL：操作数据库、表"><a href="#3-DDL：操作数据库、表" class="headerlink" title="3. DDL：操作数据库、表"></a>3. DDL：操作数据库、表</h2><h3 id="3-1-操作数据库"><a href="#3-1-操作数据库" class="headerlink" title="3.1 操作数据库"></a>3.1 操作数据库</h3><h4 id="3-1-1-创建数据库"><a href="#3-1-1-创建数据库" class="headerlink" title="3.1.1 创建数据库"></a>3.1.1 创建数据库</h4><pre><code>* create database 数据库名;
+* create database if not exists 数据库名称;
+* create database 数据库名称 character set 字符集名;</code></pre><h4 id="3-1-2-查询数据库"><a href="#3-1-2-查询数据库" class="headerlink" title="3.1.2 查询数据库"></a>3.1.2 查询数据库</h4><pre><code>* show databases;
+* show create database 数据库名称;</code></pre><h4 id="3-1-3-修改数据库"><a href="#3-1-3-修改数据库" class="headerlink" title="3.1.3 修改数据库"></a>3.1.3 修改数据库</h4><pre><code>* alter database 数据库名称character set 字符集名称;</code></pre><h4 id="3-1-4-删除数据库"><a href="#3-1-4-删除数据库" class="headerlink" title="3.1.4 删除数据库"></a>3.1.4 删除数据库</h4><pre><code>* drop database 数据库名称;
+* drop database if exists 数据库名称;</code></pre><h4 id="3-1-5-使用数据库"><a href="#3-1-5-使用数据库" class="headerlink" title="3.1.5 使用数据库"></a>3.1.5 使用数据库</h4><pre><code>* select database();
+* use 数据库名称;</code></pre><h3 id="3-2-操作表"><a href="#3-2-操作表" class="headerlink" title="3.2 操作表"></a>3.2 操作表</h3><h4 id="3-2-1-创建表"><a href="#3-2-1-创建表" class="headerlink" title="3.2.1 创建表"></a>3.2.1 创建表</h4><pre><code>create table 表名(
+            列名1 数据类型1,
+            列名2 数据类型2,
+            ....
+            列名n 数据类型n
+        );
+* 注意：最后一列，不需要加逗号（,）
+* 数据库类型：
+    1. int：整数类型
+                * age int,
+    2. double:小数类型
+        * score double(5,2)
+    3. date:日期，只包含年月日，yyyy-MM-dd
+    4. datetime:日期，包含年月日时分秒     yyyy-MM-dd HH:mm:ss
+    5. timestamp:时间错类型    包含年月日时分秒     yyyy-MM-dd HH:mm:ss    
+        * 如果将来不给这个字段赋值，或赋值为null，则默认使用当前的系统时间，来自动赋值
+
+    6. varchar：字符串
+        * name varchar(20):姓名最大20个字符
+        * zhangsan 8个字符  张三 2个字符
+* 复制表：
+        * create table 表名 like 被复制的表名;</code></pre><h4 id="3-2-2-查询表"><a href="#3-2-2-查询表" class="headerlink" title="3.2.2 查询表"></a>3.2.2 查询表</h4><pre><code>* show tables;
+* desc 表名;</code></pre><h4 id="3-2-3-修改表"><a href="#3-2-3-修改表" class="headerlink" title="3.2.3 修改表"></a>3.2.3 修改表</h4><pre><code>* alter table 表名 rename to 新表名;
+* alter table 表名 character set 字符集名称;
+* alter table 表名 add 列名 数据类型;
+* alter table 表名 change 列名 新列别 新数据类型;
+* alter table 表名 modify 列名 新数据类型;
+* alter table 表名 drop 列名;</code></pre><h4 id="3-2-4-删除表"><a href="#3-2-4-删除表" class="headerlink" title="3.2.4 删除表"></a>3.2.4 删除表</h4><pre><code>* drop table 表名;
+* drop table  if exists 表名 ;</code></pre><h2 id="4-DML：增删改表中数据"><a href="#4-DML：增删改表中数据" class="headerlink" title="4. DML：增删改表中数据"></a>4. DML：增删改表中数据</h2><h3 id="4-1-添加数据："><a href="#4-1-添加数据：" class="headerlink" title="4.1 添加数据："></a>4.1 添加数据：</h3><pre><code>* insert into 表名(列名1,列名2,...列名n) values(值1,值2,...值n);
+
+* 注意：
+    1. 列名和值要一一对应。
+    2. 如果表名后，不定义列名，则默认给所有列添加值
+        insert into 表名 values(值1,值2,...值n);
+    3. 除了数字类型，其他类型需要使用引号(单双都可以)引起来</code></pre><h3 id="4-2-删除数据："><a href="#4-2-删除数据：" class="headerlink" title="4.2 删除数据："></a>4.2 删除数据：</h3><pre><code>* delete from 表名 [where 条件]
+
+* 注意：
+    1. 如果不加条件，则删除表中所有记录。
+    2. 如果要删除所有记录
+        * TRUNCATE TABLE 表名;效率高 先删除表，然后再创建一张一样的表。</code></pre><h3 id="4-3-修改数据："><a href="#4-3-修改数据：" class="headerlink" title="4.3 修改数据："></a>4.3 修改数据：</h3><pre><code>* update 表名 set 列名1 = 值1, 列名2 = 值2,... [where 条件];
+
+* 注意：
+    1. 如果不加任何条件，则会将表中所有记录全部修改。</code></pre><h2 id="5-DQL：查询表中的记录"><a href="#5-DQL：查询表中的记录" class="headerlink" title="5. DQL：查询表中的记录"></a>5. DQL：查询表中的记录</h2><h3 id="5-1-语法："><a href="#5-1-语法：" class="headerlink" title="5.1 语法："></a>5.1 语法：</h3><pre><code>select
+    字段列表
+from
+    表名列表
+where
+    条件列表
+group by
+    分组字段
+having
+    分组之后的条件
+order by
+    排序
+limit
+    分页限定</code></pre><h3 id="5-2-基础查询"><a href="#5-2-基础查询" class="headerlink" title="5.2 基础查询"></a>5.2 基础查询</h3><pre><code>1. 多个字段的查询
+    * select 字段名1，字段名2... from 表名;
+    * select * from 表名;
+
+2. 去除重复：
+    * distinct
+
+3. 计算列
+    * 一般可以使用四则运算计算一些列的值。（一般只会进行数值型的计算）
+    * ifnull(表达式1,表达式2)：null参与的运算，计算结果都为null
+        * 表达式1：哪个字段需要判断是否为null
+        * 如果该字段为null后的替换值。
+
+4. 起别名：
+    * as：as也可以省略</code></pre><h3 id="5-3-条件查询"><a href="#5-3-条件查询" class="headerlink" title="5.3 条件查询"></a>5.3 条件查询</h3><pre><code>1. where子句后跟条件
+
+2. 运算符
+    * &gt; 、&lt; 、&lt;= 、&gt;= 、= 、&lt;&gt;
+    * BETWEEN...AND  
+    * IN( 集合) 
+    * LIKE：模糊查询
+        * 占位符：
+            * _:单个任意字符
+            * %：多个任意字符
+    * IS NULL  
+    * and  或 &amp;&amp;
+    * or  或 || 
+    * not  或 ! </code></pre><h3 id="5-4-排序查询"><a href="#5-4-排序查询" class="headerlink" title="5.4 排序查询"></a>5.4 排序查询</h3><pre><code>* 语法：order by 子句
+    * order by 排序字段1 排序方式1 ，  排序字段2 排序方式2...
+
+* 排序方式：
+    * ASC：升序，默认的。
+    * DESC：降序。
+
+* 注意：
+    * 如果有多个排序条件，则当前边的条件值一样时，才会判断第二条件。</code></pre><h3 id="5-5-聚合函数："><a href="#5-5-聚合函数：" class="headerlink" title="5.5 聚合函数："></a>5.5 聚合函数：</h3><pre><code>将一列数据作为一个整体，进行纵向的计算。
+
+1. count：计算个数
+2. max：计算最大值
+3. min：计算最小值
+4. sum：计算和
+5. avg：计算平均值
+
+* 注意：聚合函数的计算，排除null值。
+    解决方案：
+        1. 选择不包含非空的列进行计算
+        2. IFNULL函数</code></pre><h3 id="5-6-分组查询"><a href="#5-6-分组查询" class="headerlink" title="5.6 分组查询:"></a>5.6 分组查询:</h3><pre><code>1. 语法：group by 分组字段；
+
+2. 注意：
+
+    1. 分组之后查询的字段：分组字段、聚合函数
+
+    2. where 和 having 的区别？
+        1. where 在分组之前进行限定，如果不满足条件，则不参与分组。having在分组之后进行限定，如果不满足结果，则不会被查询出来
+        2. where 后不可以跟聚合函数，having可以进行聚合函数的判断。
+
+    --  按照性别分组。分别查询男、女同学的平均分,人数 要求：分数低于70分的人，不参与分组,分组之后。人数要大于2个人
+        SELECT sex , AVG(math),COUNT(id) FROM student WHERE math &gt; 70 GROUP BY sex HAVING COUNT(id) &gt; 2;
+
+
+4. 分页查询
+
+    1. 语法：limit 开始的索引,每页查询的条数;
+
+    2. 公式：开始的索引 = （当前的页码 - 1） * 每页显示的条数
+
+        -- 每页显示3条记录 
+
+        SELECT * FROM student LIMIT 0,3; -- 第1页
+
+        SELECT * FROM student LIMIT 3,3; -- 第2页
+
+        SELECT * FROM student LIMIT 6,3; -- 第3页
+
+    3. limit 是一个MySQL&quot;方言&quot;      </code></pre><h3 id="6-DCL"><a href="#6-DCL" class="headerlink" title="6. DCL"></a>6. DCL</h3><h4 id="6-1-管理用户"><a href="#6-1-管理用户" class="headerlink" title="6.1 管理用户"></a>6.1 管理用户</h4><h5 id="1-添加用户"><a href="#1-添加用户" class="headerlink" title="1 添加用户"></a>1 添加用户</h5><pre><code>* 语法：CREATE USER &apos;用户名&apos;@&apos;主机名&apos; IDENTIFIED BY &apos;密码&apos;;</code></pre><h5 id="2-删除用户"><a href="#2-删除用户" class="headerlink" title="2 删除用户"></a>2 删除用户</h5><pre><code>* 语法：DROP USER &apos;用户名&apos;@&apos;主机名&apos;;</code></pre><h5 id="3-修改用户密码"><a href="#3-修改用户密码" class="headerlink" title="3 修改用户密码"></a>3 修改用户密码</h5><pre><code>UPDATE USER SET PASSWORD = PASSWORD(&apos;新密码&apos;) WHERE USER = &apos;用户名&apos;;
+UPDATE USER SET PASSWORD = PASSWORD(&apos;abc&apos;) WHERE USER = &apos;lisi&apos;;
+
+SET PASSWORD FOR &apos;用户名&apos;@&apos;主机名&apos; = PASSWORD(&apos;新密码&apos;);
+SET PASSWORD FOR &apos;root&apos;@&apos;localhost&apos; = PASSWORD(&apos;123&apos;);
+
+* mysql中忘记了root用户的密码？
+    1. cmd -- &gt; net stop mysql 停止mysql服务
+        * 需要管理员运行该cmd
+
+    2. 使用无验证方式启动mysql服务： mysqld --skip-grant-tables
+    3. 打开新的cmd窗口,直接输入mysql命令，敲回车。就可以登录成功
+    4. use mysql;
+    5. update user set password = password(&apos;你的新密码&apos;) where user = &apos;root&apos;;
+    6. 关闭两个窗口
+    7. 打开任务管理器，手动结束mysqld.exe 的进程
+    8. 启动mysql服务
+    9. 使用新密码登录。</code></pre><h5 id="4-查询用户"><a href="#4-查询用户" class="headerlink" title="4 查询用户"></a>4 查询用户</h5><pre><code>-- 1. 切换到mysql数据库
+USE myql;
+-- 2. 查询user表
+SELECT * FROM USER;
+
+* 通配符： % 表示可以在任意主机使用用户登录数据库</code></pre><h4 id="6-2-权限管理："><a href="#6-2-权限管理：" class="headerlink" title="6.2 权限管理："></a>6.2 权限管理：</h4><h5 id="1-查询权限"><a href="#1-查询权限" class="headerlink" title="1. 查询权限"></a>1. 查询权限</h5><pre><code>-- 查询权限
+SHOW GRANTS FOR &apos;用户名&apos;@&apos;主机名&apos;;
+SHOW GRANTS FOR &apos;lisi&apos;@&apos;%&apos;;</code></pre><h5 id="2-授予权限"><a href="#2-授予权限" class="headerlink" title="2. 授予权限"></a>2. 授予权限</h5><pre><code>-- 授予权限
+grant 权限列表 on 数据库名.表名 to &apos;用户名&apos;@&apos;主机名&apos;;
+-- 给张三用户授予所有权限，在任意数据库任意表上
+GRANT ALL ON *.* TO &apos;zhangsan&apos;@&apos;localhost&apos;;</code></pre><h5 id="3-撤销权限"><a href="#3-撤销权限" class="headerlink" title="3. 撤销权限"></a>3. 撤销权限</h5><pre><code>-- 撤销权限
+revoke 权限列表 on 数据库名.表名 from &apos;用户名&apos;@&apos;主机名&apos;;
+REVOKE UPDATE ON db3.`account` FROM &apos;lisi&apos;@&apos;%&apos;;</code></pre><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-数据库的基本概念"><span class="toc-text">1. 数据库的基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-SQL"><span class="toc-text">2. SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-什么是SQL"><span class="toc-text">2.1 什么是SQL?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-SQL通用语法"><span class="toc-text">2.2 SQL通用语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-SQL分类"><span class="toc-text">2.3 SQL分类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-DDL：操作数据库、表"><span class="toc-text">3. DDL：操作数据库、表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-操作数据库"><span class="toc-text">3.1 操作数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-创建数据库"><span class="toc-text">3.1.1 创建数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-查询数据库"><span class="toc-text">3.1.2 查询数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-修改数据库"><span class="toc-text">3.1.3 修改数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-4-删除数据库"><span class="toc-text">3.1.4 删除数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-5-使用数据库"><span class="toc-text">3.1.5 使用数据库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-操作表"><span class="toc-text">3.2 操作表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-创建表"><span class="toc-text">3.2.1 创建表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-查询表"><span class="toc-text">3.2.2 查询表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-修改表"><span class="toc-text">3.2.3 修改表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-删除表"><span class="toc-text">3.2.4 删除表</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-DML：增删改表中数据"><span class="toc-text">4. DML：增删改表中数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-添加数据："><span class="toc-text">4.1 添加数据：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-删除数据："><span class="toc-text">4.2 删除数据：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-修改数据："><span class="toc-text">4.3 修改数据：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-DQL：查询表中的记录"><span class="toc-text">5. DQL：查询表中的记录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-语法："><span class="toc-text">5.1 语法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-基础查询"><span class="toc-text">5.2 基础查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-条件查询"><span class="toc-text">5.3 条件查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-排序查询"><span class="toc-text">5.4 排序查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-聚合函数："><span class="toc-text">5.5 聚合函数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-分组查询"><span class="toc-text">5.6 分组查询:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-DCL"><span class="toc-text">6. DCL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-管理用户"><span class="toc-text">6.1 管理用户</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-添加用户"><span class="toc-text">1 添加用户</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-删除用户"><span class="toc-text">2 删除用户</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-修改用户密码"><span class="toc-text">3 修改用户密码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-查询用户"><span class="toc-text">4 查询用户</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-权限管理："><span class="toc-text">6.2 权限管理：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-查询权限"><span class="toc-text">1. 查询权限</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-授予权限"><span class="toc-text">2. 授予权限</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-撤销权限"><span class="toc-text">3. 撤销权限</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yoursite.com/2021/03/26/MySQL基础(一)/">http://yoursite.com/2021/03/26/MySQL基础(一)/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2021/03/26/MySQL%E5%9F%BA%E7%A1%80(%E4%BA%8C)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL基础(二)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/03/25/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">正则表达式</div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/20201/03/28/JAVA%E5%9F%BA%E7%A1%80_io/">JAVA基础_io</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/02/web%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/">web文件下载</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/31/%E8%B7%AF%E5%BE%84%E5%92%8C%E7%BC%96%E7%A0%81/">路径和编码</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/29/JavaWeb_Http/">JavaWeb_Http</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/29/HttpServlet%EF%BC%9A%E6%AD%A4URL%E4%B8%8D%E6%94%AF%E6%8C%81HTTP%E6%96%B9%E6%B3%95GET/">HttpServlet：此URL不支持HTTP方法GET</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/01%E8%83%8C%E5%8C%85/" style="font-size: 10px;">01背包</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Http/" style="font-size: 10px;">Http</a> <a href="/tags/IDEA%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">IDEA配置</a> <a href="/tags/JAVA/" style="font-size: 13.33px;">JAVA</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaWeb/" style="font-size: 16.67px;">JavaWeb</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Mistake/" style="font-size: 10px;">Mistake</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/Servlet/" style="font-size: 13.33px;">Servlet</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" style="font-size: 10px;">字符编码</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" style="font-size: 10px;">文件下载</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">设计模式</a> <a href="/tags/%E8%B7%AF%E5%BE%84/" style="font-size: 10px;">路径</a>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/20201/">20201年03月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年04月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年03月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年02月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年01月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年07月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年05月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年04月</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/01%E8%83%8C%E5%8C%85/" rel="tag">01背包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Http/" rel="tag">Http</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA%E9%85%8D%E7%BD%AE/" rel="tag">IDEA配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mistake/" rel="tag">Mistake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" rel="tag">字符编码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" rel="tag">文件下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E5%BE%84/" rel="tag">路径</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2021 Galois.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        
+            <span>Count by <a href="http://busuanzi.ibruce.info/" target="_blank">busuanzi.</a></span>
+        
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  
+<script src="/localshare/js/social-share.js"></script>
+
+  
+<script src="/localshare/js/qrcode.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>

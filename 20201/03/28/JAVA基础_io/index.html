@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>JAVA基础_io | Galois</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Galois">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Galois</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">耐心努力</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-JAVA基础_io" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      JAVA基础_io
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="+020201-03-28T07:45:14.000Z" itemprop="datePublished">20201年03月28日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/20201/03/28/JAVA%E5%9F%BA%E7%A1%80_io/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>java基础Filel类</p>
+<a id="more"></a>
+<h2 id="1-File类"><a href="#1-File类" class="headerlink" title="1.File类"></a>1.File类</h2><ol>
+<li><p>文件和目录路径名的抽象表示形式。</p>
+</li>
+<li><p>java把电脑中的文件和文件夹(目录)封装为了一个File类,我们可以使用File类对文件和文件夹进行操作</p>
+</li>
+<li><p>我们可以使用File类的方法</p>
+<pre><code>创建一个文件/文件夹
+删除文件/文件夹
+获取文件/文件夹
+判断文件/文件夹是否存在
+对文件夹进行遍历
+获取文件的大小</code></pre></li>
+<li><p>File类是一个与系统无关的类,任何的操作系统都可以使用这个类中的方法</p>
+</li>
+<li><p>重点:记住这三个单词</p>
+<pre><code>file:文件
+directory:文件夹/目录
+path:路径</code></pre> <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        static String pathSeparator 与系统有关的路径分隔符，为了方便，它被表示为一个字符串。</span></span><br><span class="line"><span class="comment">        static char pathSeparatorChar 与系统有关的路径分隔符。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        static String separator 与系统有关的默认名称分隔符，为了方便，它被表示为一个字符串。</span></span><br><span class="line"><span class="comment">        static char separatorChar 与系统有关的默认名称分隔符。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        操作路径:路径不能写死了</span></span><br><span class="line"><span class="comment">        C:\develop\a\a.txt  windows</span></span><br><span class="line"><span class="comment">        C:/develop/a/a.txt  linux</span></span><br><span class="line"><span class="comment">        "C:"+File.separator+"develop"+File.separator+"a"+File.separator+"a.txt"</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    String pathSeparator = File.pathSeparator;</span><br><span class="line">    System.out.println(pathSeparator);<span class="comment">//路径分隔符 windows:分号;  linux:冒号:</span></span><br><span class="line"></span><br><span class="line">    String separator = File.separator;</span><br><span class="line">    System.out.println(separator);<span class="comment">// 文件名称分隔符 windows:反斜杠\  linux:正斜杠/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="2-路径"><a href="#2-路径" class="headerlink" title="2. 路径"></a>2. 路径</h2><ol>
+<li><p>绝对路径:是一个完整的路径</p>
+<pre><code>c:\\a.txt
+C:\\Users\itcast\\IdeaProjects\\shungyuan\\123.txt
+D:\\demo\\b.txt</code></pre></li>
+<li><p>相对路径:是一个简化的路径</p>
+<pre><code>相对指的是相对于当前项目的根目录(C:\\Users\itcast\\IdeaProjects\\shungyuan)
+如果使用当前项目的根目录,路径可以简化书写
+C:\\Users\itcast\\IdeaProjects\\shungyuan\\123.txt--&gt;简化为: 123.txt(可以省略项目的根目录)</code></pre></li>
+<li><p>注意:</p>
+<pre><code>1.路径是不区分大小写
+2.路径中的文件名称分隔符windows使用反斜杠,反斜杠是转义字符,两个反斜杠代表一个普通</code></pre> <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    File类的构造方法</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"><span class="comment">//show02("c:\\","a.txt");//c:\a.txt</span></span><br><span class="line"><span class="comment">//show02("d:\\","a.txt");//d:\a.txt</span></span><br><span class="line">show03();</span><br><span class="line"></span><br><span class="line">File f = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shungyuan"</span>);</span><br><span class="line"><span class="keyword">long</span> length = f.length();</span><br><span class="line">System.out.println(length);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    File(File parent, String child) 根据 parent 抽象路径名和 child 路径名字符串创建一个新 File 实例。</span></span><br><span class="line"><span class="comment">    参数:把路径分成了两部分</span></span><br><span class="line"><span class="comment">        File parent:父路径</span></span><br><span class="line"><span class="comment">        String child:子路径</span></span><br><span class="line"><span class="comment">    好处:</span></span><br><span class="line"><span class="comment">            父路径和子路径,可以单独书写,使用起来非常灵活;父路径和子路径都可以变化</span></span><br><span class="line"><span class="comment">            父路径是File类型,可以使用File的方法对路径进行一些操作,再使用路径创建对象</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show03</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    File parent = <span class="keyword">new</span> File(<span class="string">"c:\\"</span>);</span><br><span class="line">    File file = <span class="keyword">new</span> File(parent,<span class="string">"hello.java"</span>);</span><br><span class="line">    System.out.println(file);<span class="comment">//c:\hello.java</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    File(String parent, String child) 根据 parent 路径名字符串和 child 路径名字符串创建一个新 File 实例。</span></span><br><span class="line"><span class="comment">    参数:把路径分成了两部分</span></span><br><span class="line"><span class="comment">        String parent:父路径</span></span><br><span class="line"><span class="comment">        String child:子路径</span></span><br><span class="line"><span class="comment">    好处:</span></span><br><span class="line"><span class="comment">        父路径和子路径,可以单独书写,使用起来非常灵活;父路径和子路径都可以变化</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show02</span><span class="params">(String parent, String child)</span> </span>&#123;</span><br><span class="line">    File file = <span class="keyword">new</span> File(parent,child);</span><br><span class="line">    System.out.println(file);<span class="comment">//c:\a.txt</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    File(String pathname) 通过将给定路径名字符串转换为抽象路径名来创建一个新 File 实例。</span></span><br><span class="line"><span class="comment">    参数:</span></span><br><span class="line"><span class="comment">        String pathname:字符串的路径名称</span></span><br><span class="line"><span class="comment">        路径可以是以文件结尾,也可以是以文件夹结尾</span></span><br><span class="line"><span class="comment">        路径可以是相对路径,也可以是绝对路径</span></span><br><span class="line"><span class="comment">        路径可以是存在,也可以是不存在</span></span><br><span class="line"><span class="comment">        创建File对象,只是把字符串路径封装为File对象,不考虑路径的真假情况</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    File f1 = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shungyuan\\a.txt"</span>);</span><br><span class="line">    System.out.println(f1);<span class="comment">//重写了Object类的toString方法 C:\Users\itcast\IdeaProjects\shungyuan\a.txt</span></span><br><span class="line"></span><br><span class="line">    File f2 = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shungyuan"</span>);</span><br><span class="line">    System.out.println(f2);<span class="comment">//C:\Users\itcast\IdeaProjects\shungyuan</span></span><br><span class="line"></span><br><span class="line">    File f3 = <span class="keyword">new</span> File(<span class="string">"b.txt"</span>);</span><br><span class="line">    System.out.println(f3);<span class="comment">//b.txt</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="3-File类获取功能的方法"><a href="#3-File类获取功能的方法" class="headerlink" title="3. File类获取功能的方法"></a>3. File类获取功能的方法</h2><pre><code>- public String getAbsolutePath() ：返回此File的绝对路径名字符串。
+- public String getPath() ：将此File转换为路径名字符串。
+- public String getName()  ：返回由此File表示的文件或目录的名称。
+- public long length()  ：返回由此File表示的文件的长度。</code></pre><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        show04();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        public long length()  ：返回由此File表示的文件的长度。</span></span><br><span class="line"><span class="comment">        获取的是构造方法指定的文件的大小,以字节为单位</span></span><br><span class="line"><span class="comment">        注意:</span></span><br><span class="line"><span class="comment">            文件夹是没有大小概念的,不能获取文件夹的大小</span></span><br><span class="line"><span class="comment">            如果构造方法中给出的路径不存在,那么length方法返回0</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show04</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        File f1 = <span class="keyword">new</span> File(<span class="string">"C:\\develop\\a\\1.jpg"</span>);</span><br><span class="line">        <span class="keyword">long</span> l1 = f1.length();</span><br><span class="line">        System.out.println(l1);<span class="comment">//780831字节</span></span><br><span class="line"></span><br><span class="line">        File f2 = <span class="keyword">new</span> File(<span class="string">"C:\\develop\\a\\2.jpg"</span>);</span><br><span class="line">        System.out.println(f2.length());<span class="comment">//0</span></span><br><span class="line"></span><br><span class="line">        File f3 = <span class="keyword">new</span> File(<span class="string">"C:\\develop\\a"</span>);</span><br><span class="line">        System.out.println(f3.length());<span class="comment">//0 文件夹没有大小概念的</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        public String getName()  ：返回由此File表示的文件或目录的名称。</span></span><br><span class="line"><span class="comment">        获取的就是构造方法传递路径的结尾部分(文件/文件夹)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show03</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        File f1 = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shungyuan\\a.txt"</span>);</span><br><span class="line">        String name1 = f1.getName();</span><br><span class="line">        System.out.println(name1);<span class="comment">//a.txt</span></span><br><span class="line"></span><br><span class="line">        File f2 = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shungyuan"</span>);</span><br><span class="line">        String name2 = f2.getName();</span><br><span class="line">        System.out.println(name2);<span class="comment">//shungyuan</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        public String getPath() ：将此File转换为路径名字符串。</span></span><br><span class="line"><span class="comment">        获取的构造方法中传递的路径</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        toString方法调用的就是getPath方法</span></span><br><span class="line"><span class="comment">        源码:</span></span><br><span class="line"><span class="comment">            public String toString() &#123;</span></span><br><span class="line"><span class="comment">                return getPath();</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        File f1 = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shungyuan\\a.txt"</span>);</span><br><span class="line">        File f2 = <span class="keyword">new</span> File(<span class="string">"a.txt"</span>);</span><br><span class="line">        String path1 = f1.getPath();</span><br><span class="line">        System.out.println(path1);<span class="comment">//C:\Users\itcast\IdeaProjects\shungyuan\a.txt</span></span><br><span class="line">        String path2 = f2.getPath();</span><br><span class="line">        System.out.println(path2);<span class="comment">//a.txt</span></span><br><span class="line"></span><br><span class="line">        System.out.println(f1);<span class="comment">//C:\Users\itcast\IdeaProjects\shungyuan\a.txt</span></span><br><span class="line">        System.out.println(f1.toString());<span class="comment">//C:\Users\itcast\IdeaProjects\shungyuan\a.txt</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        public String getAbsolutePath() ：返回此File的绝对路径名字符串。</span></span><br><span class="line"><span class="comment">        获取的构造方法中传递的路径</span></span><br><span class="line"><span class="comment">        无论路径是绝对的还是相对的,getAbsolutePath方法返回的都是绝对路径</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        File f1 = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shungyuan\\a.txt"</span>);</span><br><span class="line">        String absolutePath1 = f1.getAbsolutePath();</span><br><span class="line">        System.out.println(absolutePath1);<span class="comment">//C:\Users\itcast\IdeaProjects\shungyuan\a.txt</span></span><br><span class="line"></span><br><span class="line">        File f2 = <span class="keyword">new</span> File(<span class="string">"a.txt"</span>);</span><br><span class="line">        String absolutePath2 = f2.getAbsolutePath();</span><br><span class="line">        System.out.println(absolutePath2);<span class="comment">//C:\Users\itcast\IdeaProjects\shungyuan\a.txt</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-File类判断功能的方法"><a href="#4-File类判断功能的方法" class="headerlink" title="4. File类判断功能的方法"></a>4. File类判断功能的方法</h2><pre><code>- public boolean exists() ：此File表示的文件或目录是否实际存在。
+- public boolean isDirectory() ：此File表示的是否为目录。
+- public boolean isFile() ：此File表示的是否为文件。</code></pre><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        show02();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        public boolean isDirectory() ：此File表示的是否为目录。</span></span><br><span class="line"><span class="comment">            用于判断构造方法中给定的路径是否以文件夹结尾</span></span><br><span class="line"><span class="comment">                是:true</span></span><br><span class="line"><span class="comment">                否:false</span></span><br><span class="line"><span class="comment">        public boolean isFile() ：此File表示的是否为文件。</span></span><br><span class="line"><span class="comment">            用于判断构造方法中给定的路径是否以文件结尾</span></span><br><span class="line"><span class="comment">                是:true</span></span><br><span class="line"><span class="comment">                否:false</span></span><br><span class="line"><span class="comment">        注意:</span></span><br><span class="line"><span class="comment">            电脑的硬盘中只有文件/文件夹,两个方法是互斥</span></span><br><span class="line"><span class="comment">            这两个方法使用前提,路径必须是存在的,否则都返回false</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        File f1 = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shung"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//不存在,就没有必要获取</span></span><br><span class="line">        <span class="keyword">if</span>(f1.exists())&#123;</span><br><span class="line">            System.out.println(f1.isDirectory());</span><br><span class="line">            System.out.println(f1.isFile());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        File f2 = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shungyuan"</span>);</span><br><span class="line">        <span class="keyword">if</span>(f2.exists())&#123;</span><br><span class="line">            System.out.println(f2.isDirectory());<span class="comment">//true</span></span><br><span class="line">            System.out.println(f2.isFile());<span class="comment">//false</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        File f3 = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shungyuan\\shungyuan.iml"</span>);</span><br><span class="line">        <span class="keyword">if</span>(f3.exists())&#123;</span><br><span class="line">            System.out.println(f3.isDirectory());<span class="comment">//false</span></span><br><span class="line">            System.out.println(f3.isFile());<span class="comment">//true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        public boolean exists() ：此File表示的文件或目录是否实际存在。</span></span><br><span class="line"><span class="comment">        用于判断构造方法中的路径是否存在</span></span><br><span class="line"><span class="comment">            存在:true</span></span><br><span class="line"><span class="comment">            不存在:false</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        File f1 = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shungyuan"</span>);</span><br><span class="line">        System.out.println(f1.exists());<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line">        File f2 = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shung"</span>);</span><br><span class="line">        System.out.println(f2.exists());<span class="comment">//false</span></span><br><span class="line"></span><br><span class="line">        File f3 = <span class="keyword">new</span> File(<span class="string">"shungyuan.iml"</span>);<span class="comment">//相对路径 C:\Users\itcast\IdeaProjects\shungyuan\shungyuan.iml</span></span><br><span class="line">        System.out.println(f3.exists());<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line">        File f4 = <span class="keyword">new</span> File(<span class="string">"a.txt"</span>);</span><br><span class="line">        System.out.println(f4.exists());<span class="comment">//false</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-File类创建删除功能的方法"><a href="#5-File类创建删除功能的方法" class="headerlink" title="5. File类创建删除功能的方法"></a>5. File类创建删除功能的方法</h2><pre><code>- public boolean createNewFile() ：当且仅当具有该名称的文件尚不存在时，创建一个新的空文件。
+- public boolean delete() ：删除由此File表示的文件或目录。
+- public boolean mkdir() ：创建由此File表示的目录。
+- public boolean mkdirs() ：创建由此File表示的目录，包括任何必需但不存在的父目录。</code></pre><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">       show03();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/*</span></span><br><span class="line"><span class="comment">       public boolean delete() ：删除由此File表示的文件或目录。</span></span><br><span class="line"><span class="comment">       此方法,可以删除构造方法路径中给出的文件/文件夹</span></span><br><span class="line"><span class="comment">       返回值:布尔值</span></span><br><span class="line"><span class="comment">           true:文件/文件夹删除成功,返回true</span></span><br><span class="line"><span class="comment">           false:文件夹中有内容,不会删除返回false;构造方法中路径不存在false</span></span><br><span class="line"><span class="comment">       注意:</span></span><br><span class="line"><span class="comment">           delete方法是直接在硬盘删除文件/文件夹,不走回收站,删除要谨慎</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show03</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       File f1 = <span class="keyword">new</span> File(<span class="string">"08_FileAndRecursion\\新建文件夹"</span>);</span><br><span class="line">       <span class="keyword">boolean</span> b1 = f1.delete();</span><br><span class="line">       System.out.println(<span class="string">"b1:"</span>+b1);</span><br><span class="line"></span><br><span class="line">       File f2 = <span class="keyword">new</span> File(<span class="string">"08_FileAndRecursion\\abc.txt"</span>);</span><br><span class="line">       System.out.println(f2.delete());</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/*</span></span><br><span class="line"><span class="comment">      public boolean mkdir() ：创建单级空文件夹</span></span><br><span class="line"><span class="comment">      public boolean mkdirs() ：既可以创建单级空文件夹,也可以创建多级文件夹</span></span><br><span class="line"><span class="comment">      创建文件夹的路径和名称在构造方法中给出(构造方法的参数)</span></span><br><span class="line"><span class="comment">       返回值:布尔值</span></span><br><span class="line"><span class="comment">           true:文件夹不存在,创建文件夹,返回true</span></span><br><span class="line"><span class="comment">           false:文件夹存在,不会创建,返回false;构造方法中给出的路径不存在返回false</span></span><br><span class="line"><span class="comment">       注意:</span></span><br><span class="line"><span class="comment">           1.此方法只能创建文件夹,不能创建文件</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       File f1 = <span class="keyword">new</span> File(<span class="string">"08_FileAndRecursion\\aaa"</span>);</span><br><span class="line">       <span class="keyword">boolean</span> b1 = f1.mkdir();</span><br><span class="line">       System.out.println(<span class="string">"b1:"</span>+b1);</span><br><span class="line"></span><br><span class="line">       File f2 = <span class="keyword">new</span> File(<span class="string">"08_FileAndRecursion\\111\\222\\333\\444"</span>);</span><br><span class="line">       <span class="keyword">boolean</span> b2 = f2.mkdirs();</span><br><span class="line">       System.out.println(<span class="string">"b2:"</span>+b2);</span><br><span class="line"></span><br><span class="line">       File f3 = <span class="keyword">new</span> File(<span class="string">"08_FileAndRecursion\\abc.txt"</span>);</span><br><span class="line">       <span class="keyword">boolean</span> b3 = f3.mkdirs();<span class="comment">//看类型,是一个文件</span></span><br><span class="line">       System.out.println(<span class="string">"b3:"</span>+b3);</span><br><span class="line"></span><br><span class="line">       File f4 = <span class="keyword">new</span> File(<span class="string">"08_F\\ccc"</span>);</span><br><span class="line">       <span class="keyword">boolean</span> b4 = f4.mkdirs();<span class="comment">//不会抛出异常,路径不存在,不会创建</span></span><br><span class="line">       System.out.println(<span class="string">"b4:"</span>+b4);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/*</span></span><br><span class="line"><span class="comment">       public boolean createNewFile() ：当且仅当具有该名称的文件尚不存在时，创建一个新的空文件。</span></span><br><span class="line"><span class="comment">       创建文件的路径和名称在构造方法中给出(构造方法的参数)</span></span><br><span class="line"><span class="comment">       返回值:布尔值</span></span><br><span class="line"><span class="comment">           true:文件不存在,创建文件,返回true</span></span><br><span class="line"><span class="comment">           false:文件存在,不会创建,返回false</span></span><br><span class="line"><span class="comment">       注意:</span></span><br><span class="line"><span class="comment">           1.此方法只能创建文件,不能创建文件夹</span></span><br><span class="line"><span class="comment">           2.创建文件的路径必须存在,否则会抛出异常</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">       public boolean createNewFile() throws IOException</span></span><br><span class="line"><span class="comment">       createNewFile声明抛出了IOException,我们调用这个方法,就必须的处理这个异常,要么throws,要么trycatch</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show01</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">       File f1 = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shungyuan\\08_FileAndRecursion\\1.txt"</span>);</span><br><span class="line">       <span class="keyword">boolean</span> b1 = f1.createNewFile();</span><br><span class="line">       System.out.println(<span class="string">"b1:"</span>+b1);</span><br><span class="line"></span><br><span class="line">       File f2 = <span class="keyword">new</span> File(<span class="string">"08_FileAndRecursion\\2.txt"</span>);</span><br><span class="line">       System.out.println(f2.createNewFile());</span><br><span class="line"></span><br><span class="line">       File f3 = <span class="keyword">new</span> File(<span class="string">"08_FileAndRecursion\\新建文件夹"</span>);</span><br><span class="line">       System.out.println(f3.createNewFile());<span class="comment">//不要被名称迷糊,要看类型</span></span><br><span class="line"></span><br><span class="line">       File f4 = <span class="keyword">new</span> File(<span class="string">"08_FileAndRecursi\\3.txt"</span>);</span><br><span class="line">       System.out.println(f4.createNewFile());<span class="comment">//路径不存在,抛出IOException</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-File类遍历-文件夹-目录功能"><a href="#6-File类遍历-文件夹-目录功能" class="headerlink" title="6. File类遍历(文件夹)目录功能"></a>6. File类遍历(文件夹)目录功能</h2><pre><code>- public String[] list() ：返回一个String数组，表示该File目录中的所有子文件或目录。
+- public File[] listFiles() ：返回一个File数组，表示该File目录中的所有的子文件或目录。
+
+注意:
+list方法和listFiles方法遍历的是构造方法中给出的目录
+如果构造方法中给出的目录的路径不存在,会抛出空指针异常
+如果构造方法中给出的路径不是一个目录,也会抛出空指针异常</code></pre><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       show02();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/*</span></span><br><span class="line"><span class="comment">       public File[] listFiles() ：返回一个File数组，表示该File目录中的所有的子文件或目录。</span></span><br><span class="line"><span class="comment">       遍历构造方法中给出的目录,会获取目录中所有的文件/文件夹,把文件/文件夹封装为File对象,多个File对象存储到File数组中</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       File file = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shungyuan\\08_FileAndRecursion"</span>);</span><br><span class="line">       File[] files = file.listFiles();</span><br><span class="line">       <span class="keyword">for</span> (File f : files) &#123;</span><br><span class="line">           System.out.println(f);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/*</span></span><br><span class="line"><span class="comment">       public String[] list() ：返回一个String数组，表示该File目录中的所有子文件或目录。</span></span><br><span class="line"><span class="comment">       遍历构造方法中给出的目录,会获取目录中所有文件/文件夹的名称,把获取到的多个名称存储到一个String类型的数组中</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">//File file = new File("C:\\Users\\itcast\\IdeaProjects\\shungyuan\\08_FileAndRecursion\\1.txt");//NullPointerException</span></span><br><span class="line">       <span class="comment">//File file = new File("C:\\Users\\itcast\\IdeaProjects\\shungyuan\\08_Fi");//NullPointerException</span></span><br><span class="line">       File file = <span class="keyword">new</span> File(<span class="string">"C:\\Users\\itcast\\IdeaProjects\\shungyuan\\08_FileAndRecursion"</span>);</span><br><span class="line">       String[] arr = file.list();</span><br><span class="line">       <span class="keyword">for</span> (String fileName : arr) &#123;</span><br><span class="line">           System.out.println(fileName);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-File类"><span class="toc-text">1.File类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-路径"><span class="toc-text">2. 路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-File类获取功能的方法"><span class="toc-text">3. File类获取功能的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-File类判断功能的方法"><span class="toc-text">4. File类判断功能的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-File类创建删除功能的方法"><span class="toc-text">5. File类创建删除功能的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-File类遍历-文件夹-目录功能"><span class="toc-text">6. File类遍历(文件夹)目录功能</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yoursite.com/20201/03/28/JAVA基础_io/">http://yoursite.com/20201/03/28/JAVA基础_io/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+  
+    <a href="/2021/04/02/web%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">web文件下载</div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/20201/03/28/JAVA%E5%9F%BA%E7%A1%80_io/">JAVA基础_io</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/02/web%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/">web文件下载</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/31/%E8%B7%AF%E5%BE%84%E5%92%8C%E7%BC%96%E7%A0%81/">路径和编码</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/29/JavaWeb_Http/">JavaWeb_Http</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/29/HttpServlet%EF%BC%9A%E6%AD%A4URL%E4%B8%8D%E6%94%AF%E6%8C%81HTTP%E6%96%B9%E6%B3%95GET/">HttpServlet：此URL不支持HTTP方法GET</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/01%E8%83%8C%E5%8C%85/" style="font-size: 10px;">01背包</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Http/" style="font-size: 10px;">Http</a> <a href="/tags/IDEA%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">IDEA配置</a> <a href="/tags/JAVA/" style="font-size: 13.33px;">JAVA</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaWeb/" style="font-size: 16.67px;">JavaWeb</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Mistake/" style="font-size: 10px;">Mistake</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/Servlet/" style="font-size: 13.33px;">Servlet</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" style="font-size: 10px;">字符编码</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" style="font-size: 10px;">文件下载</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">设计模式</a> <a href="/tags/%E8%B7%AF%E5%BE%84/" style="font-size: 10px;">路径</a>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/20201/">20201年03月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年04月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年03月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年02月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年01月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年07月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年05月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年04月</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/01%E8%83%8C%E5%8C%85/" rel="tag">01背包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Http/" rel="tag">Http</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA%E9%85%8D%E7%BD%AE/" rel="tag">IDEA配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mistake/" rel="tag">Mistake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" rel="tag">字符编码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" rel="tag">文件下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E5%BE%84/" rel="tag">路径</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2021 Galois.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        
+            <span>Count by <a href="http://busuanzi.ibruce.info/" target="_blank">busuanzi.</a></span>
+        
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  
+<script src="/localshare/js/social-share.js"></script>
+
+  
+<script src="/localshare/js/qrcode.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>

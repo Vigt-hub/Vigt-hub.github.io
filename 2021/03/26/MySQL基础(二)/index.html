@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>MySQL基础(二) | Galois</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Galois">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Galois</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">耐心努力</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-MySQL基础(二)" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      MySQL基础(二)
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-03-26T02:34:05.000Z" itemprop="datePublished">2021年03月26日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2021/03/26/MySQL%E5%9F%BA%E7%A1%80(%E4%BA%8C)/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>约束、多表之间的关系、范式、数据库的备份和还原</p>
+<a id="more"></a>
+
+<h2 id="1-约束"><a href="#1-约束" class="headerlink" title="1. 约束"></a>1. 约束</h2><h3 id="1-1-分类："><a href="#1-1-分类：" class="headerlink" title="1.1 分类："></a>1.1 分类：</h3><pre><code>1. 主键约束：primary key
+
+2. 非空约束：not null
+
+3. 唯一约束：unique
+
+4. 外键约束：foreign key</code></pre><h3 id="1-2-非空约束：not-null，值不能为null"><a href="#1-2-非空约束：not-null，值不能为null" class="headerlink" title="1.2 非空约束：not null，值不能为null"></a>1.2 非空约束：not null，值不能为null</h3><h4 id="1-2-1-创建表时添加约束"><a href="#1-2-1-创建表时添加约束" class="headerlink" title="1.2.1 创建表时添加约束"></a>1.2.1 创建表时添加约束</h4><pre><code>CREATE TABLE stu(
+    id INT,
+    NAME VARCHAR(20) NOT NULL -- name为非空
+);</code></pre><h4 id="1-2-2-创建表完后，添加非空约束"><a href="#1-2-2-创建表完后，添加非空约束" class="headerlink" title="1.2.2 创建表完后，添加非空约束"></a>1.2.2 创建表完后，添加非空约束</h4><pre><code>ALTER TABLE stu MODIFY NAME VARCHAR(20) NOT NULL;</code></pre><h4 id="1-2-3-删除name的非空约束"><a href="#1-2-3-删除name的非空约束" class="headerlink" title="1.2.3 删除name的非空约束"></a>1.2.3 删除name的非空约束</h4><pre><code>ALTER TABLE stu MODIFY NAME VARCHAR(20);</code></pre><h3 id="1-3-唯一约束：unique，值不能重复"><a href="#1-3-唯一约束：unique，值不能重复" class="headerlink" title="1.3 唯一约束：unique，值不能重复"></a>1.3 唯一约束：unique，值不能重复</h3><h4 id="1-3-1-创建表时，添加唯一约束"><a href="#1-3-1-创建表时，添加唯一约束" class="headerlink" title="1.3.1 创建表时，添加唯一约束"></a>1.3.1 创建表时，添加唯一约束</h4><pre><code>CREATE TABLE stu(
+    id INT,
+    phone_number VARCHAR(20) UNIQUE -- 添加了唯一约束
+
+);
+* 注意mysql中，唯一约束限定的列的值可以有多个null</code></pre><h4 id="1-3-2-删除唯一约束"><a href="#1-3-2-删除唯一约束" class="headerlink" title="1.3.2. 删除唯一约束"></a>1.3.2. 删除唯一约束</h4><pre><code>ALTER TABLE stu DROP INDEX phone_number;</code></pre><h4 id="1-3-3-在创建表后，添加唯一约束"><a href="#1-3-3-在创建表后，添加唯一约束" class="headerlink" title="1.3.3. 在创建表后，添加唯一约束"></a>1.3.3. 在创建表后，添加唯一约束</h4><pre><code>ALTER TABLE stu MODIFY phone_number VARCHAR(20) UNIQUE;</code></pre><h3 id="1-4-主键约束：primary-key。"><a href="#1-4-主键约束：primary-key。" class="headerlink" title="1.4 主键约束：primary key。"></a>1.4 主键约束：primary key。</h3><h4 id="1-4-1-注意："><a href="#1-4-1-注意：" class="headerlink" title="1.4.1 注意："></a>1.4.1 注意：</h4><pre><code>1. 含义：非空且唯一
+2. 一张表只能有一个字段为主键
+3. 主键就是表中记录的唯一标识</code></pre><h4 id="1-4-2-在创建表时，添加主键约束"><a href="#1-4-2-在创建表时，添加主键约束" class="headerlink" title="1.4.2 在创建表时，添加主键约束"></a>1.4.2 在创建表时，添加主键约束</h4><pre><code>create table stu(
+    id int primary key,-- 给id添加主键约束
+    name varchar(20)
+);</code></pre><h4 id="1-4-3-删除主键"><a href="#1-4-3-删除主键" class="headerlink" title="1.4.3 删除主键"></a>1.4.3 删除主键</h4><pre><code>-- 错误 alter table stu modify id int ;
+ALTER TABLE stu DROP PRIMARY KEY;</code></pre><h4 id="1-4-4-创建完表后，添加主键"><a href="#1-4-4-创建完表后，添加主键" class="headerlink" title="1.4.4 创建完表后，添加主键"></a>1.4.4 创建完表后，添加主键</h4><pre><code>ALTER TABLE stu MODIFY id INT PRIMARY KEY;</code></pre><h4 id="1-4-5-自动增长："><a href="#1-4-5-自动增长：" class="headerlink" title="1.4.5 自动增长："></a>1.4.5 自动增长：</h4><pre><code>1.  概念：如果某一列是数值类型的，使用 auto_increment 可以来完成值得自动增长
+
+2. 在创建表时，添加主键约束，并且完成主键自增长
+create table stu(
+    id int primary key auto_increment,-- 给id添加主键约束
+    name varchar(20)
+);
+
+
+3. 删除自动增长
+ALTER TABLE stu MODIFY id INT;
+4. 添加自动增长
+ALTER TABLE stu MODIFY id INT AUTO_INCREMENT;</code></pre><h3 id="1-5-外键约束："><a href="#1-5-外键约束：" class="headerlink" title="1.5 外键约束："></a>1.5 外键约束：</h3><h4 id="1-5-1-在创建表时，可以添加外键"><a href="#1-5-1-在创建表时，可以添加外键" class="headerlink" title="1.5.1 在创建表时，可以添加外键"></a>1.5.1 在创建表时，可以添加外键</h4><pre><code>* 语法：
+    create table 表名(
+        ....
+        外键列
+        constraint 外键名称 foreign key (外键列名称) references 主表名称(主表列名称)
+    );</code></pre><h4 id="1-5-2-删除外键"><a href="#1-5-2-删除外键" class="headerlink" title="1.5.2 删除外键"></a>1.5.2 删除外键</h4><pre><code>ALTER TABLE 表名 DROP FOREIGN KEY 外键名称;</code></pre><h4 id="1-5-3-创建表之后，添加外键"><a href="#1-5-3-创建表之后，添加外键" class="headerlink" title="1.5.3. 创建表之后，添加外键"></a>1.5.3. 创建表之后，添加外键</h4><pre><code>ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称);</code></pre><h4 id="1-5-4-级联操作"><a href="#1-5-4-级联操作" class="headerlink" title="1.5.4 级联操作"></a>1.5.4 级联操作</h4><pre><code>1. 添加级联操作
+    语法：ALTER TABLE 表名 ADD CONSTRAINT 外键名称 
+            FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称) ON UPDATE CASCADE ON DELETE CASCADE  ;
+
+2. 分类：
+    1. 级联更新：ON UPDATE CASCADE 
+    2. 级联删除：ON DELETE CASCADE</code></pre><h2 id="2-多表之间的关系"><a href="#2-多表之间的关系" class="headerlink" title="2. 多表之间的关系"></a>2. 多表之间的关系</h2><pre><code>1. 一对一：
+    * 如：人和身份证
+    * 分析：一个人只有一个身份证，一个身份证只能对应一个人
+2. 一对多(多对一)：
+    * 如：部门和员工
+    * 分析：一个部门有多个员工，一个员工只能对应一个部门
+3. 多对多：
+    * 如：学生和课程
+    * 分析：一个学生可以选择很多门课程，一个课程也可以被很多学生选择</code></pre><h2 id="3-范式"><a href="#3-范式" class="headerlink" title="3. 范式"></a>3. 范式</h2><h3 id="3-1-第一范式（1NF）："><a href="#3-1-第一范式（1NF）：" class="headerlink" title="3.1 第一范式（1NF）："></a>3.1 第一范式（1NF）：</h3><pre><code>每一列都是不可分割的原子数据项</code></pre><h3 id="3-2-第二范式（2NF）："><a href="#3-2-第二范式（2NF）：" class="headerlink" title="3.2 第二范式（2NF）："></a>3.2 第二范式（2NF）：</h3><pre><code>在1NF的基础上，非码属性必须完全依赖于码（在1NF基础上消除非主属性对主码的部分函数依赖）
+
+* 几个概念：
+    1. 函数依赖：A--&gt;B,如果通过A属性(属性组)的值，可以确定唯一B属性的值。则称B依赖于A
+        例如：学号--&gt;姓名。  （学号，课程名称） --&gt; 分数
+
+    2. 完全函数依赖：A--&gt;B， 如果A是一个属性组，则B属性值得确定需要依赖于A属性组中所有的属性值。
+        例如：（学号，课程名称） --&gt; 分数
+
+    3. 部分函数依赖：A--&gt;B， 如果A是一个属性组，则B属性值得确定只需要依赖于A属性组中某一些值即可。
+        例如：（学号，课程名称） -- &gt; 姓名
+
+    4. 传递函数依赖：A--&gt;B, B -- &gt;C . 如果通过A属性(属性组)的值，可以确定唯一B属性的值，在通过B属性（属性组）的值可以确定唯一C属性的值，则称 C 传递函数依赖于A
+        例如：学号--&gt;系名，系名--&gt;系主任
+
+    5. 码：如果在一张表中，一个属性或属性组，被其他所有属性所完全依赖，则称这个属性(属性组)为该表的码
+        例如：该表中码为：（学号，课程名称）
+        * 主属性：码属性组中的所有属性
+        * 非主属性：除过码属性组的属性</code></pre><h3 id="3-3-第三范式（3NF）："><a href="#3-3-第三范式（3NF）：" class="headerlink" title="3.3 第三范式（3NF）："></a>3.3 第三范式（3NF）：</h3><pre><code>在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）</code></pre><h2 id="4-数据库的备份和还原"><a href="#4-数据库的备份和还原" class="headerlink" title="4. 数据库的备份和还原"></a>4. 数据库的备份和还原</h2><pre><code>1. 命令行：
+    * 语法：
+        * 备份： mysqldump -u用户名 -p密码 数据库名称 &gt; 保存的路径
+        * 还原：
+            1. 登录数据库
+            2. 创建数据库
+            3. 使用数据库
+            4. 执行文件: source 文件路径
+
+2. 图形化工具</code></pre><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-约束"><span class="toc-text">1. 约束</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-分类："><span class="toc-text">1.1 分类：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-非空约束：not-null，值不能为null"><span class="toc-text">1.2 非空约束：not null，值不能为null</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-创建表时添加约束"><span class="toc-text">1.2.1 创建表时添加约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-创建表完后，添加非空约束"><span class="toc-text">1.2.2 创建表完后，添加非空约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-删除name的非空约束"><span class="toc-text">1.2.3 删除name的非空约束</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-唯一约束：unique，值不能重复"><span class="toc-text">1.3 唯一约束：unique，值不能重复</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-创建表时，添加唯一约束"><span class="toc-text">1.3.1 创建表时，添加唯一约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-删除唯一约束"><span class="toc-text">1.3.2. 删除唯一约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3-在创建表后，添加唯一约束"><span class="toc-text">1.3.3. 在创建表后，添加唯一约束</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-主键约束：primary-key。"><span class="toc-text">1.4 主键约束：primary key。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-注意："><span class="toc-text">1.4.1 注意：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-在创建表时，添加主键约束"><span class="toc-text">1.4.2 在创建表时，添加主键约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-删除主键"><span class="toc-text">1.4.3 删除主键</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-4-创建完表后，添加主键"><span class="toc-text">1.4.4 创建完表后，添加主键</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-5-自动增长："><span class="toc-text">1.4.5 自动增长：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-外键约束："><span class="toc-text">1.5 外键约束：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-1-在创建表时，可以添加外键"><span class="toc-text">1.5.1 在创建表时，可以添加外键</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-2-删除外键"><span class="toc-text">1.5.2 删除外键</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-3-创建表之后，添加外键"><span class="toc-text">1.5.3. 创建表之后，添加外键</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-4-级联操作"><span class="toc-text">1.5.4 级联操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-多表之间的关系"><span class="toc-text">2. 多表之间的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-范式"><span class="toc-text">3. 范式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-第一范式（1NF）："><span class="toc-text">3.1 第一范式（1NF）：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-第二范式（2NF）："><span class="toc-text">3.2 第二范式（2NF）：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-第三范式（3NF）："><span class="toc-text">3.3 第三范式（3NF）：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-数据库的备份和还原"><span class="toc-text">4. 数据库的备份和还原</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yoursite.com/2021/03/26/MySQL基础(二)/">http://yoursite.com/2021/03/26/MySQL基础(二)/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2021/03/26/MySQL%E5%9F%BA%E7%A1%80(%E4%B8%89)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL基础(三)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/03/26/MySQL%E5%9F%BA%E7%A1%80(%E4%B8%80)/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">MySQL基础(一)</div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/20201/03/28/JAVA%E5%9F%BA%E7%A1%80_io/">JAVA基础_io</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/02/web%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/">web文件下载</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/31/%E8%B7%AF%E5%BE%84%E5%92%8C%E7%BC%96%E7%A0%81/">路径和编码</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/29/JavaWeb_Http/">JavaWeb_Http</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/29/HttpServlet%EF%BC%9A%E6%AD%A4URL%E4%B8%8D%E6%94%AF%E6%8C%81HTTP%E6%96%B9%E6%B3%95GET/">HttpServlet：此URL不支持HTTP方法GET</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/01%E8%83%8C%E5%8C%85/" style="font-size: 10px;">01背包</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Http/" style="font-size: 10px;">Http</a> <a href="/tags/IDEA%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">IDEA配置</a> <a href="/tags/JAVA/" style="font-size: 13.33px;">JAVA</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaWeb/" style="font-size: 16.67px;">JavaWeb</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Mistake/" style="font-size: 10px;">Mistake</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/Servlet/" style="font-size: 13.33px;">Servlet</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" style="font-size: 10px;">字符编码</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" style="font-size: 10px;">文件下载</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">设计模式</a> <a href="/tags/%E8%B7%AF%E5%BE%84/" style="font-size: 10px;">路径</a>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/20201/">20201年03月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年04月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年03月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年02月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年01月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年07月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年05月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年04月</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/01%E8%83%8C%E5%8C%85/" rel="tag">01背包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Http/" rel="tag">Http</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA%E9%85%8D%E7%BD%AE/" rel="tag">IDEA配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mistake/" rel="tag">Mistake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" rel="tag">字符编码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" rel="tag">文件下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E5%BE%84/" rel="tag">路径</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2021 Galois.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        
+            <span>Count by <a href="http://busuanzi.ibruce.info/" target="_blank">busuanzi.</a></span>
+        
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+  
+<script src="/localshare/js/social-share.js"></script>
+
+  
+<script src="/localshare/js/qrcode.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</body>
+</html>
