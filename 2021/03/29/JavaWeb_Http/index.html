@@ -185,35 +185,33 @@ Upgrade-Insecure-Requests: 1
 
 username=zhangsan</code></pre></li>
 </ol>
-<h2 id="3-响应消息数据格式"><a href="#3-响应消息数据格式" class="headerlink" title="3. 响应消息数据格式"></a>3. 响应消息数据格式</h2><ol>
-<li><p>响应行</p>
-<p> (1). 组成：<code>协议/版本 响应状态码 状态码描述</code></p>
-<p> (2). 响应状态码：服务器告诉客户端浏览器本次请求和响应的一个状态，状态码都是3位数字,其分类：</p>
-<pre><code>1. 1xx：服务器就收客户端消息，但没有接受完成，等待一段时间后，发送1xx多状态码
-2. 2xx：成功。代表：200
-3. 3xx：重定向
-    302(重定向)
-    304(访问缓存)
-4. 4xx：客户端错误,代表：
-    404（请求路径没有对应的资源） 
-    405 (请求方式没有对应的doXxx方法)
-5. 5xx：服务器端错误。
-    500(服务器内部出现异常)</code></pre></li>
-<li><p>响应头：</p>
-<p> (1) 格式：<code>头名称： 值</code></p>
-<p> (2) 常见的响应头：</p>
-<pre><code>1. Content-Type：服务器告诉客户端本次响应体数据格式以及编码格式
+<h2 id="3-响应消息数据格式"><a href="#3-响应消息数据格式" class="headerlink" title="3. 响应消息数据格式"></a>3. 响应消息数据格式</h2><p><strong>1. 响应行</strong></p>
+<pre><code>(1). 组成：`协议/版本 响应状态码 状态码描述`
 
-2. Content-disposition：服务器告诉客户端以什么格式打开响应体数据,其值有：
+(2). 响应状态码：服务器告诉客户端浏览器本次请求和响应的一个状态，状态码都是3位数字,其分类：
 
-    in-line:默认值,在当前页面内打开
+        1. 1xx：服务器就收客户端消息，但没有接受完成，等待一段时间后，发送1xx多状态码
+        2. 2xx：成功。代表：200
+        3. 3xx：重定向
+            302(重定向)
+            304(访问缓存)
+        4. 4xx：客户端错误,代表：
+            404（请求路径没有对应的资源） 
+            405 (请求方式没有对应的doXxx方法)
+        5. 5xx：服务器端错误。
+            500(服务器内部出现异常)</code></pre><p><strong>2. 响应头</strong></p>
+<pre><code>(1) 格式：`头名称： 值`
 
-    attachment;filename=xxx：以附件形式打开响应体。文件下载</code></pre></li>
-<li><p>响应空行</p>
-</li>
-<li><p>响应体:传输的数据</p>
-</li>
-</ol>
+(2) 常见的响应头：
+
+    1. Content-Type：服务器告诉客户端本次响应体数据格式以及编码格式
+
+    2. Content-disposition：服务器告诉客户端以什么格式打开响应体数据,其值有：
+
+        in-line:默认值,在当前页面内打开
+
+        attachment;filename=xxx：以附件形式打开响应体。文件下载</code></pre><p><strong>3. 响应空行</strong></p>
+<p><strong>4. 响应体:传输的数据</strong></p>
 <h1 id="2-Request"><a href="#2-Request" class="headerlink" title="2. Request"></a>2. Request</h1><h2 id="1-request对象和response对象的原理"><a href="#1-request对象和response对象的原理" class="headerlink" title="1. request对象和response对象的原理"></a>1. request对象和response对象的原理</h2><pre><code>1. request和response对象是由服务器创建的,我们只是来使用它们
 
 2. request对象是来获取请求消息，response对象是来设置响应消息</code></pre><h2 id="2-request对象继承体系结构"><a href="#2-request对象继承体系结构" class="headerlink" title="2. request对象继承体系结构"></a>2. request对象继承体系结构</h2><pre><code>ServletRequest --接口
@@ -247,15 +245,20 @@ org.apache.catalina.connector.RequestFacade 类(tomcat)</code></pre><h2 id="3-re
     7. 获取客户机的IP地址：
         String getRemoteAddr()</code></pre><h4 id="2-获取请求头数据"><a href="#2-获取请求头数据" class="headerlink" title="2. 获取请求头数据"></a>2. 获取请求头数据</h4><pre><code>(*)String getHeader(String name):通过请求头的名称获取请求头的值
 
-Enumeration&lt;String&gt; getHeaderNames()`:获取所有的请求头名称</code></pre><h4 id="3-获取请求体数据"><a href="#3-获取请求体数据" class="headerlink" title="3. 获取请求体数据"></a>3. 获取请求体数据</h4><pre><code>1. 请求体：只有POST请求方式，才有请求体，在请求体中封装了POST请求的请求参数
-
-2. 步骤：
-
-    1. 流对获取象
-        BufferedReader getReader()：获取字符输入流，只能操作字符数据
-        ServletInputStream getInputStream()：获取字节输入流，可以操作所有类型数据，详解请看在文件上传知识点后讲解
-
-    2. 再从流对象中拿数据</code></pre><h4 id="4-获取请求参数通用方式"><a href="#4-获取请求参数通用方式" class="headerlink" title="4. 获取请求参数通用方式"></a>4. 获取请求参数通用方式</h4><ol>
+Enumeration&lt;String&gt; getHeaderNames()`:获取所有的请求头名称</code></pre><h4 id="3-获取请求体数据"><a href="#3-获取请求体数据" class="headerlink" title="3. 获取请求体数据"></a>3. 获取请求体数据</h4><ol>
+<li>请求体：只有POST请求方式，才有请求体，在请求体中封装了POST请求的请求参数</li>
+</ol>
+<ul>
+<li><p>步骤：</p>
+<ol>
+<li><p>流对获取象<br> BufferedReader getReader()：获取字符输入流，只能操作字符数据<br> ServletInputStream getInputStream()：获取字节输入流，可以操作所有类型数据，详解请看在文件上传知识点后讲解</p>
+</li>
+<li><p>再从流对象中拿数据</p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="4-获取请求参数通用方式"><a href="#4-获取请求参数通用方式" class="headerlink" title="4. 获取请求参数通用方式"></a>4. 获取请求参数通用方式</h4><ol>
 <li><p>不论get还是post请求方式都可以使用下列方法来获取请求参数</p>
 <pre><code>1. String getParameter(String name):根据参数名称获取参数值    username=zs&amp;password=123
 
@@ -274,9 +277,13 @@ Enumeration&lt;String&gt; getHeaderNames()`:获取所有的请求头名称</code
 <h4 id="5-请求转发"><a href="#5-请求转发" class="headerlink" title="5. 请求转发"></a>5. 请求转发</h4><p>一种在服务器内部的资源跳转方式,即<code>AServlet</code>跳转到<code>BServlet</code></p>
 <ol>
 <li><p>步骤：</p>
-<pre><code>1. 通过request对象获取请求转发器对象： RequestDispatcher getRequestDispatcher(String path)
-
-2. 使用RequestDispatcher对象来进行转发：forward(ServletRequest request, ServletResponse response)</code></pre></li>
+<ol>
+<li><p>通过request对象获取请求转发器对象： <code>RequestDispatcher getRequestDispatcher(String path)</code></p>
+</li>
+<li><p>使用RequestDispatcher对象来进行转发：<code>forward(ServletRequest request, ServletResponse response)</code></p>
+</li>
+</ol>
+</li>
 <li><p>特点：</p>
 <pre><code>1. 浏览器地址栏路径不发生变化
 
@@ -320,13 +327,16 @@ Enumeration&lt;String&gt; getHeaderNames()`:获取所有的请求头名称</code
 
 3. removeAttribute(String name)</code></pre></li>
 <li><p>获取文件的运行路径</p>
-<pre><code>String getRealPath(String path)  
-
-1. String b = context.getRealPath(&quot;/b.txt&quot;);//web目录下资源访问
-
-2.String c = context.getRealPath(&quot;/WEB-INF/c.txt&quot;);//WEB-INF目录下的资源访问
-
-3. String a = context.getRealPath(&quot;/WEB-INF/classes/a.txt&quot;);//src目录下的资源访问,src目录下的文件编译后的文件会存放在classes目录下</code></pre></li>
+<p> <code>String getRealPath(String path)</code></p>
+<ol>
+<li><p>String b = context.getRealPath(“/b.txt”);//web目录下资源访问</p>
+</li>
+<li><p>String c = context.getRealPath(“/WEB-INF/c.txt”);//WEB-INF目录下的资源访问</p>
+</li>
+<li><p>String a = context.getRealPath(“/WEB-INF/classes/a.txt”);//src目录下的资源访问,src目录下的文件编译后的文件会存放在classes目录下</p>
+</li>
+</ol>
+</li>
 </ol>
 </li>
 </ol>
@@ -357,16 +367,19 @@ Enumeration&lt;String&gt; getHeaderNames()`:获取所有的请求头名称</code
 <li><p>用于封装JavaBean的</p>
 </li>
 <li><p>JavaBean：标准的Java类</p>
-<pre><code>1. 要求：
-    1. 类必须被public修饰
-    2. 必须提供空参的构造器
-    3. 成员变量必须使用private修饰
-    4. 提供公共setter和getter方法
-2. 功能：封装数据</code></pre></li>
-<li><p>概念：</p>
-<pre><code>成员变量：
-属性：setter和getter方法截取后的产物
-    例如：getUsername() --&gt; Username--&gt; username</code></pre></li>
+<ol>
+<li><p>要求：</p>
+<pre><code>1. 类必须被public修饰
+2. 必须提供空参的构造器
+3. 成员变量必须使用private修饰
+4. 提供公共setter和getter方法</code></pre></li>
+<li><p>功能：封装数据</p>
+</li>
+</ol>
+</li>
+<li><p>成员变量和属性概念：</p>
+<p> 成员变量就是写在作用域的变量,属性则是setter和getter方法截取后的产物例如：getUsername() –&gt; Username–&gt; username</p>
+</li>
 <li><p>方法：</p>
 <pre><code>1. setProperty()
 2. getProperty()
@@ -461,19 +474,19 @@ Enumeration&lt;String&gt; getHeaderNames()`:获取所有的请求头名称</code
           </li>
         
           <li>
-            <a href="/2021/04/02/web%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/">web文件下载</a>
+            <a href="/2021/05/13/Spring%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">Spring配置文件</a>
           </li>
         
           <li>
-            <a href="/2021/03/31/%E8%B7%AF%E5%BE%84%E5%92%8C%E7%BC%96%E7%A0%81/">路径和编码</a>
+            <a href="/2021/05/13/Spring%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">Spring快速入门</a>
           </li>
         
           <li>
-            <a href="/2021/03/29/JavaWeb_Http/">JavaWeb_Http</a>
+            <a href="/2021/05/13/Spring/">Spring快速入门</a>
           </li>
         
           <li>
-            <a href="/2021/03/29/HttpServlet%EF%BC%9A%E6%AD%A4URL%E4%B8%8D%E6%94%AF%E6%8C%81HTTP%E6%96%B9%E6%B3%95GET/">HttpServlet：此URL不支持HTTP方法GET</a>
+            <a href="/2021/05/07/Maven/">Maven</a>
           </li>
         
       </ul>
@@ -486,7 +499,7 @@ Enumeration&lt;String&gt; getHeaderNames()`:获取所有的请求头名称</code
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/01%E8%83%8C%E5%8C%85/" style="font-size: 10px;">01背包</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Http/" style="font-size: 10px;">Http</a> <a href="/tags/IDEA%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">IDEA配置</a> <a href="/tags/JAVA/" style="font-size: 13.33px;">JAVA</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaWeb/" style="font-size: 16.67px;">JavaWeb</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Mistake/" style="font-size: 10px;">Mistake</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/Servlet/" style="font-size: 13.33px;">Servlet</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" style="font-size: 10px;">字符编码</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" style="font-size: 10px;">文件下载</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">设计模式</a> <a href="/tags/%E8%B7%AF%E5%BE%84/" style="font-size: 10px;">路径</a>
+      <a href="/tags/01%E8%83%8C%E5%8C%85/" style="font-size: 10px;">01背包</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/EL/" style="font-size: 10px;">EL</a> <a href="/tags/Http/" style="font-size: 10px;">Http</a> <a href="/tags/IDEA%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">IDEA配置</a> <a href="/tags/JAVA/" style="font-size: 12.5px;">JAVA</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/JQuery/" style="font-size: 12.5px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JSP/" style="font-size: 12.5px;">JSP</a> <a href="/tags/JSTL/" style="font-size: 10px;">JSTL</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaWeb/" style="font-size: 20px;">JavaWeb</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/MVC/" style="font-size: 12.5px;">MVC</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/Mistake/" style="font-size: 10px;">Mistake</a> <a href="/tags/MySQL/" style="font-size: 17.5px;">MySQL</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Servlet/" style="font-size: 12.5px;">Servlet</a> <a href="/tags/Session/" style="font-size: 12.5px;">Session</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" style="font-size: 10px;">字符编码</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" style="font-size: 10px;">文件下载</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">设计模式</a> <a href="/tags/%E8%B7%AF%E5%BE%84/" style="font-size: 10px;">路径</a> <a href="/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 10px;">连接池</a>
     </div>
   </div>
 
@@ -498,7 +511,7 @@ Enumeration&lt;String&gt; getHeaderNames()`:获取所有的请求头名称</code
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/20201/">20201年03月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年04月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年03月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年02月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年01月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年07月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年05月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年04月</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/20201/">20201年03月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年05月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年04月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年03月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年02月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年01月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年07月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年05月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年04月</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -508,7 +521,7 @@ Enumeration&lt;String&gt; getHeaderNames()`:获取所有的请求头名称</code
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/01%E8%83%8C%E5%8C%85/" rel="tag">01背包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Http/" rel="tag">Http</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA%E9%85%8D%E7%BD%AE/" rel="tag">IDEA配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mistake/" rel="tag">Mistake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" rel="tag">字符编码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" rel="tag">文件下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E5%BE%84/" rel="tag">路径</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/01%E8%83%8C%E5%8C%85/" rel="tag">01背包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ajax/" rel="tag">Ajax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cookie/" rel="tag">Cookie</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EL/" rel="tag">EL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Http/" rel="tag">Http</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA%E9%85%8D%E7%BD%AE/" rel="tag">IDEA配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDBC/" rel="tag">JDBC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JQuery/" rel="tag">JQuery</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/" rel="tag">JSON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/" rel="tag">JSP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSTL/" rel="tag">JSTL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVC/" rel="tag">MVC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/" rel="tag">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mistake/" rel="tag">Mistake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session/" rel="tag">Session</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" rel="tag">字符编码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" rel="tag">文件下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E5%BE%84/" rel="tag">路径</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/" rel="tag">连接池</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 

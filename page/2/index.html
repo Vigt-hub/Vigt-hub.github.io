@@ -82,7 +82,7 @@
 
       <div class="outer">
         <section id="main">
-  <article id="w-MySQL基础(一)" class="h-entry article article-type-w" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-JQuery基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
     
@@ -90,7 +90,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/03/26/MySQL%E5%9F%BA%E7%A1%80(%E4%B8%80)/">MySQL基础(一)</a>
+      <a class="p-name article-title" href="/2021/05/02/JQuery%E5%9F%BA%E7%A1%80/">JQuery基础</a>
     </h1>
   
 
@@ -101,12 +101,12 @@
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-03-26T01:18:40.000Z" itemprop="datePublished">2021年03月26日</time>
+  <time class="dt-published" datetime="2021-05-02T07:15:33.000Z" itemprop="datePublished">2021年05月02日</time>
 </span>
       
       
       
-<a href="/2021/03/26/MySQL%E5%9F%BA%E7%A1%80(%E4%B8%80)/#comments" class="article-comment-link">
+<a href="/2021/05/02/JQuery%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -116,16 +116,270 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>数据库的基本概念、SQL(DDL、DML、DQL、DLC)</p>
+        <p>JQuery是一个JavaScript框架，设计的宗旨是“write Less，Do More”，即倡导写更少的代码，做更多的事情。</p>
+<!-- moer -->
+
+<p>它封装JavaScript常用的功能代码，提供一种简便的JavaScript设计模式，优    化HTML文档操作、事件处理、动画设计和Ajax交互。</p>
+<h2 id="1-快速入门"><a href="#1-快速入门" class="headerlink" title="1. 快速入门"></a>1. 快速入门</h2><p><strong>1. 下载JQuery</strong></p>
+<ul>
+<li><p>目前jQuery有三个大版本：</p>
+<p>  1.x：兼容ie678,使用最为广泛的，官方只做BUG维护，</p>
+<pre><code>功能不再新增。因此一般项目来说，使用1.x版本就可以了，
+最终版本：1.12.4 (2016年5月20日)</code></pre><p>  2.x：不兼容ie678，很少有人使用，官方只做BUG维护，</p>
+<pre><code>功能不再新增。如果不考虑兼容低版本的浏览器可以使用2.x，
+最终版本：2.2.4 (2016年5月20日)</code></pre><p>  3.x：不兼容ie678，只支持最新的浏览器。除非特殊要求，</p>
+<pre><code>一般不会使用3.x版本的，很多老的jQuery插件不支持这个版本。
+目前该版本是官方主要更新维护的版本。最新版本：3.2.1（2017年3月20日）</code></pre></li>
+<li><p>jquery-xxx.js 与 jquery-xxx.min.js区别：</p>
+<ol>
+<li><p>jquery-xxx.js：开发版本。给程序员看的，有良好的缩进和注释。体积大一些</p>
+</li>
+<li><p>jquery-xxx.min.js：生产版本。程序中使用，没有缩进。体积小一些。程序加载更快</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>2. 导入</strong></p>
+<p>JQuery的js文件：导入min.js文件</p>
+<p><strong>3. 使用</strong></p>
+<h2 id="2-JQuery和JS的区别"><a href="#2-JQuery和JS的区别" class="headerlink" title="2. JQuery和JS的区别"></a>2. JQuery和JS的区别</h2><p>JQuery对象和JS对象区别与转换</p>
+<ol>
+<li><p>JQuery对象在操作时，更加方便。</p>
+</li>
+<li><p>JQuery对象和js对象方法不通用的.</p>
+</li>
+<li><p>两者相互转换</p>
+<ul>
+<li>jq – &gt; js : jq对象[索引] 或者 jq对象.get(索引)</li>
+<li>js – &gt; jq : $(js对象)</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-选择器"><a href="#3-选择器" class="headerlink" title="3. 选择器"></a>3. 选择器</h2><p>筛选具有相似特征的元素(标签)</p>
+<h3 id="3-1-基本操作"><a href="#3-1-基本操作" class="headerlink" title="3.1 基本操作"></a>3.1 基本操作</h3><p><strong>3.1.1 事件绑定</strong></p>
+<pre><code>//1.获取id=b1的按钮
+$(&quot;#b1&quot;).click(function(){
+    alert(&quot;abc&quot;);
+});</code></pre><p><strong>3.1.2 入口函数</strong></p>
+<pre><code>$(function () {
+    /dom文档加载完成之后执行函数中的代码
+});
+
+window.onload  和 $(function) 区别
+    1. window.onload 只能定义一次,如果定义多次，后边的会将前边的覆盖掉
+    2. $(function)可以定义多次的。</code></pre><p><strong>3.1.3 样式控制</strong></p>
+<pre><code>// $(&quot;#div1&quot;).css(&quot;background-color&quot;,&quot;red&quot;);
+$(&quot;#div1&quot;).css(&quot;backgroundColor&quot;,&quot;pink&quot;);</code></pre><h3 id="3-2-分类"><a href="#3-2-分类" class="headerlink" title="3.2 分类"></a>3.2 分类</h3><p><strong>1. 基本选择器</strong></p>
+<pre><code>1. 标签选择器（元素选择器）
+
+    语法： $(&quot;html标签名&quot;) 获得所有匹配标签名称的元素
+
+2. id选择器
+
+    语法： $(&quot;#id的属性值&quot;) 获得与指定id属性值匹配的元素
+
+3. 类选择器
+    语法： $(&quot;.class的属性值&quot;) 获得与指定的class属性值匹配的元素
+
+4. 并集选择器：
+    语法： $(&quot;选择器1,选择器2....&quot;) 获取多个选择器选中的所有元素</code></pre><p><strong>2. 层级选择器</strong></p>
+<pre><code>1. 后代选择器
+    语法： $(&quot;A B &quot;) 选择A元素内部的所有B元素        
+
+2. 子选择器
+    语法： $(&quot;A &gt; B&quot;) 选择A元素内部的所有B子元素</code></pre><p><strong>3. 属性选择器</strong></p>
+<pre><code>1. 属性名称选择器 
+    语法： $(&quot;A[属性名]&quot;) 包含指定属性的选择器
+
+2. 属性选择器
+    语法： $(&quot;A[属性名=&apos;值&apos;]&quot;) 包含指定属性等于指定值的选择器
+
+3. 复合属性选择器
+    语法： $(&quot;A[属性名=&apos;值&apos;][]...&quot;) 包含多个属性条件的选择器</code></pre><p><strong>4. 过滤选择器</strong></p>
+<pre><code>1. 首元素选择器 
+    语法： :first 获得选择的元素中的第一个元素
+
+2. 尾元素选择器 
+    语法： :last 获得选择的元素中的最后一个元素
+
+3. 非元素选择器
+    语法： :not(selector) 不包括指定内容的元素
+
+4. 偶数选择器
+    语法： :even 偶数，从 0 开始计数
+
+5. 奇数选择器
+    语法： :odd 奇数，从 0 开始计数
+
+6. 等于索引选择器
+    语法： :eq(index) 指定索引元素
+
+7. 大于索引选择器 
+    语法： :gt(index) 大于指定索引元素
+
+8. 小于索引选择器 
+    语法： :lt(index) 小于指定索引元素
+
+9. 标题选择器
+    语法： :header 获得标题（h1~h6）元素，固定写法</code></pre><p><strong>5. 表单过滤选择器</strong></p>
+<pre><code>1. 可用元素选择器 
+    语法： :enabled 获得可用元素
+
+2. 不可用元素选择器 
+    语法： :disabled 获得不可用元素
+
+3. 选中选择器 
+    语法： :checked 获得单选/复选框选中的元素
+
+4. 选中选择器 
+    语法： :selected 获得下拉框选中的元素
+注意 :前不加空格</code></pre><h3 id="3-3-DOM操作"><a href="#3-3-DOM操作" class="headerlink" title="3.3 DOM操作"></a>3.3 DOM操作</h3><h4 id="3-3-1-内容操作"><a href="#3-3-1-内容操作" class="headerlink" title="3.3.1. 内容操作"></a>3.3.1. 内容操作</h4><ol>
+<li>html(): 获取/设置元素的标签体内容   <code>&lt;a&gt;&lt;font&gt;内容&lt;/font&gt;&lt;/a&gt;</code>  –&gt; <code>&lt;font&gt;内容&lt;/font&gt;</code></li>
+<li>text(): 获取/设置元素的标签体纯文本内容   <code>&lt;a&gt;&lt;font&gt;内容&lt;/font&gt;&lt;/a&gt;</code> –&gt; 内容</li>
+<li>val()： 获取/设置元素的<code>value</code>属性值</li>
+</ol>
+<h4 id="3-2-2-属性操作"><a href="#3-2-2-属性操作" class="headerlink" title="3.2.2. 属性操作"></a>3.2.2. 属性操作</h4><p><strong>1. 通用属性操作</strong></p>
+<pre><code>操作标签的所有属性
+
+1. attr(): [获取:attr(&quot;键&quot;)]/[设置：attr(&quot;键&quot;,&quot;值&quot;)]元素的属性的值
+
+2. removeAttr():删除属性
+
+3. prop():获取/设置元素的属性的值
+
+4. removeProp():删除属性</code></pre><ul>
+<li><p>attr和prop区别？</p>
+<ol>
+<li>如果操作的是元素的<code>固有属性</code>，则建议使用prop</li>
+<li>如果操作的是元素<code>自定义</code>的属性，则建议使用attr</li>
+</ol>
+</li>
+</ul>
+<p><strong>2. 对class属性操作</strong></p>
+<pre><code>1. addClass():添加class属性值
+
+2. removeClass():删除class属性值
+
+3. toggleClass():如果存在则删除，如果不在则添加
+
+    * toggleClass(&quot;one&quot;):  判断如果元素对象上存在class=&quot;one&quot;，则将属性值one删除掉。  如果元素对象上不存在class=&quot;one&quot;，则添加
+
+4. css():[获取:css(&quot;键&quot;)]/[设置：css(&quot;键&quot;,&quot;值&quot;)]</code></pre><h4 id="3-3-3-CRUD操作"><a href="#3-3-3-CRUD操作" class="headerlink" title="3.3.3. CRUD操作"></a>3.3.3. CRUD操作</h4><pre><code>1. append():父元素将子元素追加到末尾
+
+    对象1.append(对象2): 将对象2添加到对象1元素内部，并且在末尾
+
+   prepend():父元素将子元素追加到开头
+
+    对象1.prepend(对象2):将对象2添加到对象1元素内部，并且在开头
+
+2. appendTo():
+
+    对象1.appendTo(对象2):将对象1添加到对象2内部，并且在末尾
+
+   prependTo()：
+
+    对象1.prependTo(对象2):将对象1添加到对象2内部，并且在开头
+
+3. after():添加元素到元素后边
+
+    对象1.after(对象2)： 将对象2添加到对象1后边。对象1和对象2是兄弟关系
+
+   before():添加元素到元素前边
+
+    对象1.before(对象2)： 将对象2添加到对象1前边。对象1和对象2是兄弟关系
+
+4. insertAfter()
+
+    对象1.insertAfter(对象2)：将对象2添加到对象1后边。对象1和对象2是兄弟关系
+
+   insertBefore()
+
+    对象1.insertBefore(对象2)： 将对象2添加到对象1前边。对象1和对象2是兄弟关系
+
+5. remove():移除元素
+
+    对象.remove():将对象删除掉
+
+6. empty():清空元素的所有后代元素。
+
+    对象.empty():将对象的后代元素全部清空，但是保留当前对象以及其属性节点</code></pre><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yoursite.com/page/2/index.html">http://yoursite.com/page/2/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JQuery/" rel="tag">JQuery</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-Filter" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/05/01/Filter/">Filter</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-05-01T07:35:52.000Z" itemprop="datePublished">2021年05月01日</time>
+</span>
+      
+      
+      
+<a href="/2021/05/01/Filter/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>当访问服务器的资源时，过滤器可以将请求拦截下来，完成一些特殊的功能</p>
       
     </div>
     <footer class="article-footer">
       
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li></ul>
 
         <p class="article-more-link">
-          <a href="/2021/03/26/MySQL%E5%9F%BA%E7%A1%80(%E4%B8%80)/#more">Read More</a>
+          <a href="/2021/05/01/Filter/#more">Read More</a>
         </p>
       
       
@@ -135,7 +389,7 @@
 </article>
 
 
-  <article id="post-正则表达式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-JDBC连接池" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
     
@@ -143,7 +397,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/03/25/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a>
+      <a class="p-name article-title" href="/2021/04/12/JDBC%E8%BF%9E%E6%8E%A5%E6%B1%A0/">JDBC连接池</a>
     </h1>
   
 
@@ -154,12 +408,12 @@
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-03-25T07:52:05.000Z" itemprop="datePublished">2021年03月25日</time>
+  <time class="dt-published" datetime="2021-04-12T07:13:14.000Z" itemprop="datePublished">2021年04月12日</time>
 </span>
       
       
       
-<a href="/2021/03/25/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/#comments" class="article-comment-link">
+<a href="/2021/04/12/JDBC%E8%BF%9E%E6%8E%A5%E6%B1%A0/#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -169,16 +423,17 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>定义字符串的组成规则</p>
+        <h2 id="1-数据库连接池"><a href="#1-数据库连接池" class="headerlink" title="1. 数据库连接池"></a>1. 数据库连接池</h2><ol>
+<li>连接池其实就是一个容器(集合)，存放数据库连接的容器。当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户来访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。由数据库厂商来实现,如:<code>C3P0</code>、<code>Druid</code>。</li></ol>
       
     </div>
     <footer class="article-footer">
       
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/" rel="tag">连接池</a></li></ul>
 
         <p class="article-more-link">
-          <a href="/2021/03/25/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/#more">Read More</a>
+          <a href="/2021/04/12/JDBC%E8%BF%9E%E6%8E%A5%E6%B1%A0/#more">Read More</a>
         </p>
       
       
@@ -188,7 +443,7 @@
 </article>
 
 
-  <article id="post-找回root密码" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-JDBC" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
     
@@ -196,7 +451,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/02/05/%E6%89%BE%E5%9B%9Eroot%E5%AF%86%E7%A0%81/">找回root密码</a>
+      <a class="p-name article-title" href="/2021/04/10/JDBC/">JDBC</a>
     </h1>
   
 
@@ -207,12 +462,12 @@
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-02-05T08:34:30.000Z" itemprop="datePublished">2021年02月05日</time>
+  <time class="dt-published" datetime="2021-04-10T06:23:03.000Z" itemprop="datePublished">2021年04月10日</time>
 </span>
       
       
       
-<a href="/2021/02/05/%E6%89%BE%E5%9B%9Eroot%E5%AF%86%E7%A0%81/#comments" class="article-comment-link">
+<a href="/2021/04/10/JDBC/#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -222,16 +477,16 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>记录如何找回root密码</p>
+        <p><code>Java DataBase Connectivity</code>即Java语言操作数据库。其本质是sun公司定义的一套操作<strong>所有关系型数据库</strong>的规则，即接口。各个数据库厂商去实现这套接口，提供数据库驱动jar包。我们可以使用这套接口（JDBC）编程，真正执行的代码是驱动jar包中的实现类。</p>
       
     </div>
     <footer class="article-footer">
       
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/" rel="tag">JDBC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li></ul>
 
         <p class="article-more-link">
-          <a href="/2021/02/05/%E6%89%BE%E5%9B%9Eroot%E5%AF%86%E7%A0%81/#more">Read More</a>
+          <a href="/2021/04/10/JDBC/#more">Read More</a>
         </p>
       
       
@@ -241,7 +496,7 @@
 </article>
 
 
-  <article id="post-常用Linux指令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-EL表达式&amp;JSTL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
     
@@ -249,7 +504,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/02/04/%E5%B8%B8%E7%94%A8Linux%E6%8C%87%E4%BB%A4/">常用Linux指令</a>
+      <a class="p-name article-title" href="/2021/04/07/EL%E8%A1%A8%E8%BE%BE%E5%BC%8F&JSTL/">EL表达式</a>
     </h1>
   
 
@@ -260,12 +515,12 @@
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-02-04T01:41:42.000Z" itemprop="datePublished">2021年02月04日</time>
+  <time class="dt-published" datetime="2021-04-07T09:32:25.000Z" itemprop="datePublished">2021年04月07日</time>
 </span>
       
       
       
-<a href="/2021/02/04/%E5%B8%B8%E7%94%A8Linux%E6%8C%87%E4%BB%A4/#comments" class="article-comment-link">
+<a href="/2021/04/07/EL%E8%A1%A8%E8%BE%BE%E5%BC%8F&JSTL/#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -275,16 +530,19 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>记录Linux常用命令</p>
+        <ol>
+<li><code>Expression Language</code>EL表达式语言,替换和简化jsp页面中java代码的编写,语法<code>${表达式}</code>。</li>
+<li><code>JavaServer Pages Tag Library</code>JSP标准标签库,是由Apache组织提供的开源的免费的jsp标签,格式为<code>&lt;标签&gt;</code>。</li>
+<li>三层架构：软件设计架构</li></ol>
       
     </div>
     <footer class="article-footer">
       
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EL/" rel="tag">EL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSTL/" rel="tag">JSTL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li></ul>
 
         <p class="article-more-link">
-          <a href="/2021/02/04/%E5%B8%B8%E7%94%A8Linux%E6%8C%87%E4%BB%A4/#more">Read More</a>
+          <a href="/2021/04/07/EL%E8%A1%A8%E8%BE%BE%E5%BC%8F&JSTL/#more">Read More</a>
         </p>
       
       
@@ -294,7 +552,7 @@
 </article>
 
 
-  <article id="post-Linux目录结构与功能" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-MVC开发模式&amp;三层架构" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
     
@@ -302,7 +560,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/02/04/Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8A%9F%E8%83%BD/">Linux目录结构与功能</a>
+      <a class="p-name article-title" href="/2021/04/07/MVC%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F&%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84/">MVC开发模式</a>
     </h1>
   
 
@@ -313,12 +571,12 @@
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-02-04T01:15:01.000Z" itemprop="datePublished">2021年02月04日</time>
+  <time class="dt-published" datetime="2021-04-07T09:08:34.000Z" itemprop="datePublished">2021年04月07日</time>
 </span>
       
       
       
-<a href="/2021/02/04/Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8A%9F%E8%83%BD/#comments" class="article-comment-link">
+<a href="/2021/04/07/MVC%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F&%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84/#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -328,16 +586,16 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Linux目录结构与功能</p>
+        <p>MVC开发模式</p>
       
     </div>
     <footer class="article-footer">
       
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MVC/" rel="tag">MVC</a></li></ul>
 
         <p class="article-more-link">
-          <a href="/2021/02/04/Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8A%9F%E8%83%BD/#more">Read More</a>
+          <a href="/2021/04/07/MVC%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F&%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84/#more">Read More</a>
         </p>
       
       
@@ -347,7 +605,7 @@
 </article>
 
 
-  <article id="post-设计模式专题(常用)" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-MVC开发模式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
     
@@ -355,7 +613,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/01/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%93%E9%A2%98(%E5%B8%B8%E7%94%A8)/">设计模式专题(常用)</a>
+      <a class="p-name article-title" href="/2021/04/07/MVC%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F/">MVC开发模式&amp;三层架构</a>
     </h1>
   
 
@@ -366,12 +624,12 @@
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-01-21T16:00:00.000Z" itemprop="datePublished">2021年01月22日</time>
+  <time class="dt-published" datetime="2021-04-07T09:08:34.000Z" itemprop="datePublished">2021年04月07日</time>
 </span>
       
       
       
-<a href="/2021/01/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%93%E9%A2%98(%E5%B8%B8%E7%94%A8)/#comments" class="article-comment-link">
+<a href="/2021/04/07/MVC%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F/#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -381,16 +639,16 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>记录常用设计模式</p>
+        <p>MVC开发模式和三层架构的软件设计模式</p>
       
     </div>
     <footer class="article-footer">
       
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MVC/" rel="tag">MVC</a></li></ul>
 
         <p class="article-more-link">
-          <a href="/2021/01/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%93%E9%A2%98(%E5%B8%B8%E7%94%A8)/#more">Read More</a>
+          <a href="/2021/04/07/MVC%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F/#more">Read More</a>
         </p>
       
       
@@ -400,7 +658,7 @@
 </article>
 
 
-  <article id="post-背包专题之01背包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-Session案例" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
     
@@ -408,7 +666,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/07/27/%E8%83%8C%E5%8C%85%E4%B8%93%E9%A2%98%E4%B9%8B01%E8%83%8C%E5%8C%85/">背包专题之01背包</a>
+      <a class="p-name article-title" href="/2021/04/05/Session%E6%A1%88%E4%BE%8B/">Session案例</a>
     </h1>
   
 
@@ -419,12 +677,12 @@
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2020-07-27T07:54:17.000Z" itemprop="datePublished">2020年07月27日</time>
+  <time class="dt-published" datetime="2021-04-05T09:22:27.000Z" itemprop="datePublished">2021年04月05日</time>
 </span>
       
       
       
-<a href="/2020/07/27/%E8%83%8C%E5%8C%85%E4%B8%93%E9%A2%98%E4%B9%8B01%E8%83%8C%E5%8C%85/#comments" class="article-comment-link">
+<a href="/2021/04/05/Session%E6%A1%88%E4%BE%8B/#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -434,16 +692,19 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p> <font size="3">01背包是最基础的背包问题，特点是每种物品仅有一件，可以选择放或不放。</font><br> <font size="3">其状态通常表示为<code>f[i][j]</code>,即前i个物品放入容量为j的背包中的最大价值。</font><br></p>
+        <p>需求:</p>
+<ol>
+<li>如果用户名和密码输入有误，跳转登录页面，提示:用户名或密码错误。</li>
+<li>如果验证码输入有误，跳转登录页面，提示：验证码错误。</li></ol>
       
     </div>
     <footer class="article-footer">
       
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/01%E8%83%8C%E5%8C%85/" rel="tag">01背包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Session/" rel="tag">Session</a></li></ul>
 
         <p class="article-more-link">
-          <a href="/2020/07/27/%E8%83%8C%E5%8C%85%E4%B8%93%E9%A2%98%E4%B9%8B01%E8%83%8C%E5%8C%85/#more">Read More</a>
+          <a href="/2021/04/05/Session%E6%A1%88%E4%BE%8B/#more">Read More</a>
         </p>
       
       
@@ -453,7 +714,7 @@
 </article>
 
 
-  <article id="post-IDEA中配置JSTL标准标签库" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-Session" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
     
@@ -461,7 +722,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/05/10/IDEA%E4%B8%AD%E9%85%8D%E7%BD%AEJSTL%E6%A0%87%E5%87%86%E6%A0%87%E7%AD%BE%E5%BA%93/">IDEA中配置JSTL标准标签库</a>
+      <a class="p-name article-title" href="/2021/04/05/Session/">Session</a>
     </h1>
   
 
@@ -472,12 +733,12 @@
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2020-05-10T07:16:37.000Z" itemprop="datePublished">2020年05月10日</time>
+  <time class="dt-published" datetime="2021-04-05T08:32:17.000Z" itemprop="datePublished">2021年04月05日</time>
 </span>
       
       
       
-<a href="/2020/05/10/IDEA%E4%B8%AD%E9%85%8D%E7%BD%AEJSTL%E6%A0%87%E5%87%86%E6%A0%87%E7%AD%BE%E5%BA%93/#comments" class="article-comment-link">
+<a href="/2021/04/05/Session/#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -487,16 +748,16 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>在 IDEA 中使用 jstl 时会发现它会报一个错,主要是IDEA不像Eclipse那样能自动配置，故需进行手动配置。</p>
+        <p>服务器端会话技术，在一次会话的多次请求间共享数据，将数据保存在服务器端的对象中。</p>
       
     </div>
     <footer class="article-footer">
       
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDEA%E9%85%8D%E7%BD%AE/" rel="tag">IDEA配置</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Session/" rel="tag">Session</a></li></ul>
 
         <p class="article-more-link">
-          <a href="/2020/05/10/IDEA%E4%B8%AD%E9%85%8D%E7%BD%AEJSTL%E6%A0%87%E5%87%86%E6%A0%87%E7%AD%BE%E5%BA%93/#more">Read More</a>
+          <a href="/2021/04/05/Session/#more">Read More</a>
         </p>
       
       
@@ -506,7 +767,7 @@
 </article>
 
 
-  <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-JSP案例记住上次访问时间" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
     
@@ -514,7 +775,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/04/06/hello-world/">Hello World</a>
+      <a class="p-name article-title" href="/2021/04/05/JSP%E6%A1%88%E4%BE%8B%E8%AE%B0%E4%BD%8F%E4%B8%8A%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4/">JSP案例记住上次访问时间</a>
     </h1>
   
 
@@ -525,12 +786,12 @@
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2020-04-06T11:33:12.198Z" itemprop="datePublished">2020年04月06日</time>
+  <time class="dt-published" datetime="2021-04-05T08:24:02.000Z" itemprop="datePublished">2021年04月05日</time>
 </span>
       
       
       
-<a href="/2020/04/06/hello-world/#comments" class="article-comment-link">
+<a href="/2021/04/05/JSP%E6%A1%88%E4%BE%8B%E8%AE%B0%E4%BD%8F%E4%B8%8A%E6%AC%A1%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4/#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -540,15 +801,34 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+        <p>需求：如果是第一次访问，则提示：您好，欢迎您首次访问。如果不是第一次访问，则提示：欢迎回来，您上次访问时间为:显示时间字符串</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">   <span class="comment">//获取所有Cookie</span></span><br><span class="line">    Cookie[] cs = request.getCookies();</span><br><span class="line">    <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;<span class="comment">//设置标记</span></span><br><span class="line">    <span class="keyword">if</span> (cs != <span class="keyword">null</span> &amp;&amp; cs.length &gt; <span class="number">0</span> )&#123;<span class="comment">//遍历cookie数组</span></span><br><span class="line">        <span class="keyword">for</span> (Cookie c : cs) &#123;</span><br><span class="line">            <span class="comment">//获取cookie名称</span></span><br><span class="line">            String name = c.getName();</span><br><span class="line">            <span class="comment">//判断名称是否为：lastTime</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="string">"lastTime"</span>.equals(name))&#123;<span class="comment">//不是第一次访问</span></span><br><span class="line"></span><br><span class="line">                flag = <span class="keyword">true</span>;<span class="comment">//有lastTime的cookie</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">//获取上次的时间</span></span><br><span class="line">                String value = c.getValue();</span><br><span class="line">                <span class="comment">//URL解码</span></span><br><span class="line">                value = URLDecoder.decode(value,<span class="string">"utf-8"</span>);</span><br><span class="line">                out.write(<span class="string">"&lt;h1&gt;欢迎回来,你上一次的访问时间为："</span>+value+<span class="string">"&lt;/h1&gt;"</span>);</span><br><span class="line"></span><br><span class="line">                <span class="comment">//获取当前时间的字符串值，重新赋给value</span></span><br><span class="line">                Date date = <span class="keyword">new</span> Date();</span><br><span class="line">                SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyy年mm月dd日 HH:mm:ss"</span>);</span><br><span class="line">                String str_date = sdf.format(date);</span><br><span class="line"></span><br><span class="line">                <span class="comment">//url编码</span></span><br><span class="line">                str_date = URLEncoder.encode(str_date, <span class="string">"utf-8"</span>);</span><br><span class="line">                c.setValue(str_date);</span><br><span class="line"></span><br><span class="line">                <span class="comment">//设置cookie存活时间</span></span><br><span class="line">                c.setMaxAge(<span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span> * <span class="number">30</span> );</span><br><span class="line">                response.addCookie(c);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//头次访问</span></span><br><span class="line">    <span class="keyword">if</span> (cs == <span class="keyword">null</span> || cs.length ==<span class="number">0</span> || flag == <span class="keyword">false</span>)&#123;</span><br><span class="line">       <span class="comment">//设置时间格式</span></span><br><span class="line">        Date date = <span class="keyword">new</span> Date();</span><br><span class="line">        SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyy年mm月dd日 HH:mm:ss"</span>);</span><br><span class="line">        String str_date = sdf.format(date);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//URL编码</span></span><br><span class="line">        str_date = URLEncoder.encode(str_date, <span class="string">"utf-8"</span>);</span><br><span class="line">        Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"lastTime"</span>,str_date );</span><br><span class="line"></span><br><span class="line">        <span class="comment">//设置存活时间</span></span><br><span class="line">        cookie.setMaxAge(<span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span> * <span class="number">30</span> );</span><br><span class="line">        response.addCookie(cookie);</span><br><span class="line">        out.write(<span class="string">"&lt;h1&gt;欢迎,首次访问&lt;/h1&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="http://yoursite.com/page/2/index.html">http://yoursite.com/page/2/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
       
     </div>
     <footer class="article-footer">
       
-        
-        <p class="article-more-link">
-          <a href="/2020/04/06/hello-world/#more">Read More</a>
-        </p>
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSP/" rel="tag">JSP</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
       
       
       
@@ -560,7 +840,7 @@
 
     <nav id="page-nav">
 
-<a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+<a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
 </nav>
 
 
@@ -579,19 +859,19 @@
           </li>
         
           <li>
-            <a href="/2021/04/02/web%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/">web文件下载</a>
+            <a href="/2021/05/13/Spring%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">Spring配置文件</a>
           </li>
         
           <li>
-            <a href="/2021/03/31/%E8%B7%AF%E5%BE%84%E5%92%8C%E7%BC%96%E7%A0%81/">路径和编码</a>
+            <a href="/2021/05/13/Spring%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">Spring快速入门</a>
           </li>
         
           <li>
-            <a href="/2021/03/29/JavaWeb_Http/">JavaWeb_Http</a>
+            <a href="/2021/05/13/Spring/">Spring快速入门</a>
           </li>
         
           <li>
-            <a href="/2021/03/29/HttpServlet%EF%BC%9A%E6%AD%A4URL%E4%B8%8D%E6%94%AF%E6%8C%81HTTP%E6%96%B9%E6%B3%95GET/">HttpServlet：此URL不支持HTTP方法GET</a>
+            <a href="/2021/05/07/Maven/">Maven</a>
           </li>
         
       </ul>
@@ -604,7 +884,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/01%E8%83%8C%E5%8C%85/" style="font-size: 10px;">01背包</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Http/" style="font-size: 10px;">Http</a> <a href="/tags/IDEA%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">IDEA配置</a> <a href="/tags/JAVA/" style="font-size: 13.33px;">JAVA</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaWeb/" style="font-size: 16.67px;">JavaWeb</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Mistake/" style="font-size: 10px;">Mistake</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/Servlet/" style="font-size: 13.33px;">Servlet</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" style="font-size: 10px;">字符编码</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" style="font-size: 10px;">文件下载</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">设计模式</a> <a href="/tags/%E8%B7%AF%E5%BE%84/" style="font-size: 10px;">路径</a>
+      <a href="/tags/01%E8%83%8C%E5%8C%85/" style="font-size: 10px;">01背包</a> <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/EL/" style="font-size: 10px;">EL</a> <a href="/tags/Http/" style="font-size: 10px;">Http</a> <a href="/tags/IDEA%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">IDEA配置</a> <a href="/tags/JAVA/" style="font-size: 12.5px;">JAVA</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/JQuery/" style="font-size: 12.5px;">JQuery</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JSP/" style="font-size: 12.5px;">JSP</a> <a href="/tags/JSTL/" style="font-size: 10px;">JSTL</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/JavaWeb/" style="font-size: 20px;">JavaWeb</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/MVC/" style="font-size: 12.5px;">MVC</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/Mistake/" style="font-size: 10px;">Mistake</a> <a href="/tags/MySQL/" style="font-size: 17.5px;">MySQL</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Servlet/" style="font-size: 12.5px;">Servlet</a> <a href="/tags/Session/" style="font-size: 12.5px;">Session</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" style="font-size: 10px;">字符编码</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" style="font-size: 10px;">文件下载</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">设计模式</a> <a href="/tags/%E8%B7%AF%E5%BE%84/" style="font-size: 10px;">路径</a> <a href="/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 10px;">连接池</a>
     </div>
   </div>
 
@@ -616,7 +896,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/20201/">20201年03月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年04月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年03月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年02月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年01月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年07月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年05月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年04月</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/20201/">20201年03月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年05月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年04月</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年03月</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年02月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年01月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年07月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年05月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年04月</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -626,7 +906,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/01%E8%83%8C%E5%8C%85/" rel="tag">01背包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Http/" rel="tag">Http</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA%E9%85%8D%E7%BD%AE/" rel="tag">IDEA配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mistake/" rel="tag">Mistake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" rel="tag">字符编码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" rel="tag">文件下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E5%BE%84/" rel="tag">路径</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/01%E8%83%8C%E5%8C%85/" rel="tag">01背包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ajax/" rel="tag">Ajax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cookie/" rel="tag">Cookie</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/" rel="tag">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EL/" rel="tag">EL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Http/" rel="tag">Http</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDEA%E9%85%8D%E7%BD%AE/" rel="tag">IDEA配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDBC/" rel="tag">JDBC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JQuery/" rel="tag">JQuery</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/" rel="tag">JSON</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSP/" rel="tag">JSP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSTL/" rel="tag">JSTL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVC/" rel="tag">MVC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/" rel="tag">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mistake/" rel="tag">Mistake</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/" rel="tag">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session/" rel="tag">Session</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" rel="tag">字符编码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" rel="tag">文件下载</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E5%BE%84/" rel="tag">路径</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/" rel="tag">连接池</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
