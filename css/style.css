@@ -1375,11 +1375,11 @@ a.article-title:hover {
 }
 .article-entry pre,
 .article-entry .highlight {
-  background: #f1f8ff;
+  background: #2d2d2d;
   padding: 15px 20px;
   border: none;
   overflow: auto;
-  color: #333;
+  color: #aaafb4;
   line-height: 22.400000000000002px;
   border-radius: 5px;
   margin: 0.6em 0 1.6em 0;
@@ -1394,8 +1394,8 @@ a.article-title:hover {
   font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
 }
 .article-entry code {
-  background: #000;
-  color: #000;
+  background: #f1f8ff;
+  color: #aaafb4;
   padding: 0 0.3em;
   margin: 0 0.2em;
   border-radius: 2px;
@@ -1450,7 +1450,7 @@ a.article-title:hover {
   border-style: solid;
   border-color: #d8e2eb;
   border-width: 1px 0;
-  background: #f1f8ff;
+  background: #2d2d2d;
   padding: 15px 20px 15px 0;
 }
 .article-entry .gist .gist-file {
@@ -1476,7 +1476,7 @@ a.article-title:hover {
   border: none;
 }
 .article-entry .gist .gist-file .gist-meta {
-  background: #f1f8ff;
+  background: #2d2d2d;
   color: #999;
   font: 0.85em -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   text-shadow: 0 0;
@@ -1495,7 +1495,7 @@ pre .comment {
   color: #999;
 }
 pre .title {
-  color: #2d6ef5;
+  color: #aaafb4;
 }
 pre .variable,
 pre .attribute,
@@ -1509,7 +1509,7 @@ pre .html .doctype,
 pre .css .id,
 pre .css .class,
 pre .css .pseudo {
-  color: #f2777a;
+  color: #aaafb4;
 }
 pre .number,
 pre .preprocessor,
@@ -1543,7 +1543,7 @@ pre .ruby .title .keyword,
 pre .perl .sub,
 pre .javascript .title,
 pre .coffeescript .title {
-  color: #69c;
+  color: #aaafb4;
 }
 pre .keyword,
 pre .javascript .function {
