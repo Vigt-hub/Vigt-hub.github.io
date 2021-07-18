@@ -181,20 +181,12 @@
 </tr>
 </tbody></table>
 <p>设置隔离级别，可以解决事务并发产生的问题，如脏读、不可重复读和虚读。具体看这<a href="/2021/03/26/MySQL基础(三)/#2-事务">MySQL事务</a></p>
-<pre><code>ISOLATION_DEFAULT
-ISOLATION_READ_UNCOMMITTED
-ISOLATION_READ_COMMITTED
-ISOLATION_REPEATABLE_READ
-ISOLATION_SERIALIZABLE</code></pre><p>事务传播行为:</p>
-<pre><code>REQUIRED：如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中。一般的选择（默认值）
-SUPPORTS：支持当前事务，如果当前没有事务，就以非事务方式执行（没有事务）
-MANDATORY：使用当前的事务，如果当前没有事务，就抛出异常
-REQUERS_NEW：新建事务，如果当前在事务中，把当前事务挂起。
-NOT_SUPPORTED：以非事务方式执行操作，如果当前存在事务，就把当前事务挂起
-NEVER：以非事务方式运行，如果当前存在事务，抛出异常
-NESTED：如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行 REQUIRED 类似的操作
-超时时间：默认值是-1，没有超时限制。如果有，以秒为单位进行设置
-是否只读：建议查询时设置为只读</code></pre><p><code>TransactionStatus</code> 接口提供的是事务具体的运行状态，方法介绍如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ISOLATION_DEFAULT</span><br><span class="line">ISOLATION_READ_UNCOMMITTED</span><br><span class="line">ISOLATION_READ_COMMITTED</span><br><span class="line">ISOLATION_REPEATABLE_READ</span><br><span class="line">ISOLATION_SERIALIZABLE</span><br></pre></td></tr></table></figure>
+
+<p>事务传播行为:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">REQUIRED：如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中。一般的选择（默认值）</span><br><span class="line">SUPPORTS：支持当前事务，如果当前没有事务，就以非事务方式执行（没有事务）</span><br><span class="line">MANDATORY：使用当前的事务，如果当前没有事务，就抛出异常</span><br><span class="line">REQUERS_NEW：新建事务，如果当前在事务中，把当前事务挂起。</span><br><span class="line">NOT_SUPPORTED：以非事务方式执行操作，如果当前存在事务，就把当前事务挂起</span><br><span class="line">NEVER：以非事务方式运行，如果当前存在事务，抛出异常</span><br><span class="line">NESTED：如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行 REQUIRED 类似的操作</span><br><span class="line">超时时间：默认值是-1，没有超时限制。如果有，以秒为单位进行设置</span><br><span class="line">是否只读：建议查询时设置为只读</span><br></pre></td></tr></table></figure>
+
+<p><code>TransactionStatus</code> 接口提供的是事务具体的运行状态，方法介绍如下:</p>
 <table>
 <thead>
 <tr>
